@@ -23,13 +23,16 @@
 // LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
+
+using System;
 using System.Reflection;
 using System.Runtime.CompilerServices;
+using static Aliyun.Api.Log.Properties.AssemblyInfo;
 
 // Information about this assembly is defined by the following attributes. 
 // Change them to the values specific to your project.
 
-[assembly: AssemblyTitle("Aliyun.Ap∂i.Log")]
+[assembly: AssemblyTitle("Aliyun.Api.Log")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("Alibaba Cloud")]
@@ -50,4 +53,12 @@ using System.Runtime.CompilerServices;
 //[assembly: AssemblyDelaySign(false)]
 //[assembly: AssemblyKeyFile("")]
 
-[assembly: InternalsVisibleTo("Aliyun.Api.Log.Tests")]
+[assembly: InternalsVisibleTo("Aliyun.Api.Log.Tests, PublicKey=" + PublicKey)]
+
+namespace Aliyun.Api.Log.Properties
+{
+    internal static class AssemblyInfo
+    {    
+        internal const String PublicKey = @"0024000004800000940000000602000000240000525341310004000001000100a726f8dd71d3de90991d084fc20c20e0078a4956f6d66d4f7cc1f0708c967d8053f482ecbeed7bbca78a33186b6be7244b493a04357f68af17c643c4f61ee142e8267d3f197a57268a24212c5436cdb0df54dbf91caa7f3b41702689ece692c0c90a48e5e3ff692766f63689ceae2346ef09e6e938a690e4b3c1dfc43c30938c";
+    }
+}

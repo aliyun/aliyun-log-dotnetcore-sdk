@@ -1,12 +1,21 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <ReleaseVersion>1.0.0</ReleaseVersion>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
+    <SignAssembly>true</SignAssembly>
+    <AssemblyOriginatorKeyFile>$(SolutionDir)\aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
-
-  <ItemGroup>
-    <Compile Remove="Class1.cs" />
-  </ItemGroup>
+  <Choose>
+    <When Condition=" '$(Configuration)|$(OS)' == 'Release|Windows_NT' ">
+      <PropertyGroup>
+        <PublicSign>false</PublicSign>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <PropertyGroup>
+        <PublicSign>true</PublicSign>
+      </PropertyGroup>
+    </Otherwise>
+  </Choose>
 </Project>
