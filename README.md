@@ -1,5 +1,7 @@
 # Aliyun LogService SDK for .NET Core
 
+[![NuGet](https://img.shields.io/nuget/v/Aliyun.Api.LogService.svg)](https://www.nuget.org/packages/Aliyun.Api.LogService)
+
 ## 简介
 
 阿里云 LogService Rest API 的 .NET Core SDK。
@@ -151,3 +153,7 @@
                 .Result;
         }
         ```
+
+## 更多
+
+更多信息，请参考[wiki](https://github.com/aliyun/aliyun-log-dotnetcore-sdk/wiki)。
