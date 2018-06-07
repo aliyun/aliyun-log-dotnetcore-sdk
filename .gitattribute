@@ -1,0 +1,4 @@
+###############################################################################
+# Set default behavior to automatically normalize encoding and line endings.
+###############################################################################
+* text encoding=UTF-8 eol=lf

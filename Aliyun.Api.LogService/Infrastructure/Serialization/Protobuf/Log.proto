@@ -1,0 +1,40 @@
+/******************************************************************************
+ * Compile command:
+ * $ protoc --csharp_out=. --csharp_opt=file_extension=.Generated.cs Log.proto
+ ******************************************************************************/
+
+syntax = "proto3";
+option csharp_namespace = "Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf";
+
+package aliyun.api.log.infrastructure.serialization.protobuf;
+
+message Log
+{
+    uint32 Time = 1;// UNIX Time Format
+    message Content
+    {
+        string Key = 1;
+        string Value = 2;
+    }
+    repeated Content Contents= 2;
+
+}
+message LogTag
+{
+    string Key = 1;
+    string Value = 2;
+}
+message LogGroup
+{
+    repeated Log Logs= 1;
+    string Category = 2;
+    string Topic = 3;
+    string Source = 4;
+    string MachineUUID = 5;
+    repeated LogTag LogTags = 6;
+}
+
+message LogGroupList
+{
+    repeated LogGroup logGroupList = 1;
+}

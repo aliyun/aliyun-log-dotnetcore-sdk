@@ -387,5 +387,6 @@ ASALocalRun/
 
 
 ### Project specials
-!/Aliyun.Api.Log/
-!/Aliyun.Api.Log.*/
+!/Aliyun.Api.LogService/
+!/Aliyun.Api.LogService.*/
+!/Aliyun.Api.LogService/Domain/Log/
