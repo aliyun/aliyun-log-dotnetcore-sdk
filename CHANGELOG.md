@@ -1,5 +1,11 @@
 # Aliyun LogServie SDK for .NET Core
 
+## 1.0.1
+
+### 变更内容
+
+- 依赖变更： [DotNetZip &bull; 1.10.1](https://www.nuget.org/packages/DotNetZip/1.10.1) -> [Iconic.Zlib.NetStandard &bull; 1.0.0](https://www.nuget.org/packages/Iconic.Zlib.Netstandard/1.0.0) （ Iconic.Zlib.NetStandard 为 DotNetZip 的 Zlib 功能的 NetStandard 编译版本）
+
 ## 1.0.0
 
 ### 变更内容

@@ -30,7 +30,7 @@
 | Http | [Microsoft.AspNet.WebApi.Client &bull; 5.2.4](https://www.nuget.org/packages/Microsoft.AspNet.WebApi.Client/5.2.4) |
 | Json | [Json.Net &bull; 11.0.2](https://www.nuget.org/packages/Newtonsoft.Json/11.0.2) |
 | Protobuf | [Google.Protobuf &bull; 3.5.1](https://www.nuget.org/packages/Google.Protobuf/3.5.1) |
-| Zlib | [DotNetZip &bull; 1.10.1](https://www.nuget.org/packages/DotNetZip/1.10.1) |
+| Zlib | [Iconic.Zlib.NetStandard &bull; 1.0.0](https://www.nuget.org/packages/Iconic.Zlib.Netstandard/1.0.0) |
 | Lz4 | [lz4net &bull; 1.0.15.93](https://www.nuget.org/packages/lz4net/1.0.15.93) |
 
 ## 快速开始

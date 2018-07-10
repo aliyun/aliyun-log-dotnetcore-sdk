@@ -10,6 +10,12 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Aliyun.Api.LogService.Benchmark", "Aliyun.Api.LogService.Benchmark\Aliyun.Api.LogService.Benchmark.csproj", "{B3E40B38-F2A8-4E2D-8B14-EC1E3BC6078B}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{B52B50AC-86D8-46D7-B023-5FE2C4505EB5}"
+ProjectSection(SolutionItems) = preProject
+	CHANGELOG.md = CHANGELOG.md
+	CONTRIBUTE.md = CONTRIBUTE.md
+	LICENSE = LICENSE
+	README.md = README.md
+EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
