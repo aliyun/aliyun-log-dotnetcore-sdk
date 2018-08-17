@@ -25,6 +25,7 @@
 // THE SOFTWARE.
 
 using System;
+using Aliyun.Api.LogService.Domain.Log;
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
@@ -83,13 +84,27 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         public static readonly String HashKey = $"x-log-{nameof(HashKey).ToLower()}";
 
+        /// <summary>
+        /// 当前返回数量。
+        /// </summary>
+        public static readonly String Count = $"x-log-{nameof(Count).ToLower()}";
+
+        /// <summary>
+        /// 当前读取数据下一条 cursor。
+        /// </summary>
+        public static readonly String Cursor = $"x-log-{nameof(Cursor).ToLower()}";
+
+        /// <summary>
+        /// 查询结果的状态，表示本次是否完整。
+        /// </summary>
+        /// <seealso cref="LogProgressState"/>
+        public static readonly String Progress = "x-log-progress";
+
         public static readonly String AggQuery = "x-log-agg-query";
         public static readonly String ElapsedMillisecond = "x-log-elapsed-millisecond";
         public static readonly String HasSql = "x-log-has-sql";
         public static readonly String ProcessedRows = "x-log-processed-rows";
         public static readonly String QueryInfo = "x-log-query-info";
         public static readonly String WhereQuery = "x-log-where-query";
-        public static readonly String Count = "x-log-count";
-        public static readonly String Progress = "x-log-progress";
     }
 }
