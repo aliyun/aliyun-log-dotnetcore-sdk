@@ -1,4 +1,4 @@
-﻿//
+//
 // LogServiceClientBuilders.cs
 //
 // Author:
