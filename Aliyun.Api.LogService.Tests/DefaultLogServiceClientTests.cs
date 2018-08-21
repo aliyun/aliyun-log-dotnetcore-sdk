@@ -421,6 +421,13 @@ namespace Aliyun.Api.LogService.Tests
             var response = await this.context.Client.PullLogsAsync(this.context.LogStoreName, this.context.WholeShardId, this.context.Cursor, 10);
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.BodyRawSize}={response.GetLogBodyRawSize()}");
+            this.output.WriteLine($"{LogHeaders.CompressType}={response.GetLogCompressType()}");
+            this.output.WriteLine($"{LogHeaders.Cursor}={response.GetLogCursor()}");
         }
 
         [Fact, TestPriority(nameof(TestPostLogStoreLogs))]
@@ -449,6 +456,19 @@ namespace Aliyun.Api.LogService.Tests
 
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.ElapsedMillisecond}={response.GetLogElapsedMillisecond()}");
+            this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
+            this.output.WriteLine($"{LogHeaders.HasSql}={response.GetHasSql()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(String)={response.GetQueryInfoAsString()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dictionary)={response.GetQueryInfoAsDictionary()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetQueryInfoAsDynamic()}");
+            this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetAggQuery()}");
+            this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetWhereQuery()}");
         }
 
         [Fact, TestPriority(nameof(TestGetLogStore), nameof(TestPostLogStoreLogs))]
@@ -458,6 +478,19 @@ namespace Aliyun.Api.LogService.Tests
                 $"select count(*) from {this.context.LogStoreName}");
             this.PrintResponse(response, true);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.ElapsedMillisecond}={response.GetLogElapsedMillisecond()}");
+            this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
+            this.output.WriteLine($"{LogHeaders.HasSql}={response.GetHasSql()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(String)={response.GetQueryInfoAsString()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dictionary)={response.GetQueryInfoAsDictionary()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetQueryInfoAsDynamic()}");
+            this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetAggQuery()}");
+            this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetWhereQuery()}");
         }
 
         [Fact, TestPriority(nameof(TestGetLogStore), nameof(TestPostLogStoreLogs))]
@@ -469,6 +502,11 @@ namespace Aliyun.Api.LogService.Tests
                 DateTimeOffset.UtcNow);
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
         }
 
         #endregion Log

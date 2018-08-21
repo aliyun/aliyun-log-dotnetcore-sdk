@@ -25,8 +25,11 @@
 // THE SOFTWARE.
 
 using System;
+using System.Collections.Generic;
 using Aliyun.Api.LogService.Domain.Log;
 using Aliyun.Api.LogService.Utils;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
@@ -132,6 +135,114 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         public static Int64 GetLogElapsedMillisecond(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.ElapsedMillisecond)
                 .ParseNotNull(Int64.Parse);
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        public static String GetQueryInfoAsString(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo);
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        /// <exception cref="FormatException">Header的值不是JSON对象形式。</exception>
+        public static IDictionary<String, Object> GetQueryInfoAsDictionary(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
+                .ParseNotNull(x =>
+                {
+                    if (x.IsEmpty())
+                    {
+                        return new Dictionary<String, Object>();
+                    }
+
+                    try
+                    {
+                        return JsonConvert.DeserializeObject<IDictionary<String, Object>>(x);
+                    } catch (JsonReaderException e)
+                    {
+                        // Prevent underlying type expose explicitly.
+                        throw new FormatException(e.Message, e);
+                    }
+                });
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        /// <exception cref="FormatException">Header的值不是JSON对象形式。</exception>
+        public static dynamic GetQueryInfoAsDynamic(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
+                .ParseNotNull(x =>
+                {
+                    if (x.IsEmpty())
+                    {
+                        return new JObject();
+                    }
+
+                    try
+                    {
+                        return JObject.Parse(x);
+                    } catch (JsonReaderException e)
+                    {
+                        // Prevent underlying type expose explicitly.
+                        throw new FormatException(e.Message, e);
+                    }
+                });
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        public static Boolean GetHasSql(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.HasSql)
+                .ParseNotNull(Boolean.Parse);
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        public static String GetAggQuery(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.AggQuery);
+
+        /// <summary>
+        /// （TODO: 暂无文档）
+        /// </summary>
+        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
+        /// <returns></returns>
+        public static String GetWhereQuery(this IResponse<GetLogsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.WhereQuery);
+
+        #endregion
+
+        #region GetHistograms
+
+        /// <summary>
+        /// 获取当前返回数量。
+        /// </summary>
+        /// <param name="response"><c>GetLogHistograms</c> 的响应消息。</param>
+        /// <returns>当前返回数量。</returns>
+        /// <exception cref="FormatException">Header的值不是整数形式。</exception>
+        public static Int64 GetLogCount(this IResponse<GetLogHistogramsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.Count)
+                .ParseNotNull(Int64.Parse);
+
+        /// <summary>
+        /// 获取查询结果的状态。
+        /// </summary>
+        /// <param name="response"><c>GetLogHistograms</c> 的响应消息。</param>
+        /// <returns>获取查询结果的状态。</returns>
+        /// <exception cref="OverflowException">Header的值在当前SDK版本不支持。</exception>
+        /// <seealso cref="LogProgressState"/>
+        public static LogProgressState GetLogProgress(this IResponse<GetLogHistogramsResult> response)
+            => response.Headers.GetValueOrDefault(LogHeaders.Progress)
+                .ParseNotNull(x => (LogProgressState) Enum.Parse(typeof(LogProgressState), x, true));
 
         #endregion
     }
