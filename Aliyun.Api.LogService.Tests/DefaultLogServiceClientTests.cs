@@ -363,8 +363,9 @@ namespace Aliyun.Api.LogService.Tests
                 Source = "UnitTest",
                 LogTags = new Dictionary<String, String>
                 {
-                    {"Tag1", "Value1"},
-                    {"Tag2", "Value2"}
+                    {"Tag1", null},
+                    {"Tag2", String.Empty},
+                    {"Tag3", "far"}
                 },
                 Logs = new List<LogInfo>
                 {
@@ -373,7 +374,8 @@ namespace Aliyun.Api.LogService.Tests
                         Time = DateTimeOffset.Now,
                         Contents = new Dictionary<String, String>
                         {
-                            {"foo", "bar"},
+                            {"foo", null},
+                            {"bar", String.Empty},
                             {"far", "baz"}
                         }
                     }
@@ -394,8 +396,9 @@ namespace Aliyun.Api.LogService.Tests
                     Source = "UnitTest",
                     LogTags = new Dictionary<String, String>
                     {
-                        {"Tag1", "Value1"},
-                        {"Tag2", "Value2"}
+                        {"Tag1", null},
+                        {"Tag2", String.Empty},
+                        {"Tag3", "Value2"}
                     },
                     Logs = new List<LogInfo>
                     {
@@ -404,7 +407,8 @@ namespace Aliyun.Api.LogService.Tests
                             Time = DateTimeOffset.Now,
                             Contents = new Dictionary<String, String>
                             {
-                                {"foo", "bar"},
+                                {"foo", null},
+                                {"bar", String.Empty},
                                 {"far", "baz"}
                             }
                         }
