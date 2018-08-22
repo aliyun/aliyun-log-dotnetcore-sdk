@@ -141,7 +141,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
-        public static LogQueryInfo GetQueryInfo(this IResponse<GetLogsResult> response)
+        public static LogQueryInfo GetLogQueryInfo(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
                 .ParseNotNull(JsonConvert.DeserializeObject<LogQueryInfo>);
 
@@ -151,7 +151,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
         /// <exception cref="FormatException">Header的值不是JSON对象形式。</exception>
-        public static dynamic GetQueryInfoAsDynamic(this IResponse<GetLogsResult> response)
+        public static dynamic GetLogQueryInfoAsDynamic(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
                 .ParseNotNull(x =>
                 {
@@ -175,7 +175,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
-        public static Boolean GetHasSql(this IResponse<GetLogsResult> response)
+        public static Boolean GetLogHasSql(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.HasSql)
                 .ParseNotNull(Boolean.Parse);
 
@@ -184,7 +184,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
-        public static String GetAggQuery(this IResponse<GetLogsResult> response)
+        public static String GetLogAggQuery(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.AggQuery);
 
         /// <summary>
@@ -192,7 +192,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
-        public static String GetWhereQuery(this IResponse<GetLogsResult> response)
+        public static String GetLogWhereQuery(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.WhereQuery);
 
         #endregion
