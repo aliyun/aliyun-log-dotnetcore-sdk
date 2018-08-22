@@ -141,33 +141,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// </summary>
         /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
         /// <returns></returns>
-        public static String GetQueryInfoAsString(this IResponse<GetLogsResult> response)
-            => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo);
-
-        /// <summary>
-        /// （TODO: 暂无文档）
-        /// </summary>
-        /// <param name="response"><c>GetLogs</c> 的响应消息。</param>
-        /// <returns></returns>
-        /// <exception cref="FormatException">Header的值不是JSON对象形式。</exception>
-        public static IDictionary<String, Object> GetQueryInfoAsDictionary(this IResponse<GetLogsResult> response)
+        public static LogQueryInfo GetQueryInfo(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
-                .ParseNotNull(x =>
-                {
-                    if (x.IsEmpty())
-                    {
-                        return new Dictionary<String, Object>();
-                    }
-
-                    try
-                    {
-                        return JsonConvert.DeserializeObject<IDictionary<String, Object>>(x);
-                    } catch (JsonReaderException e)
-                    {
-                        // Prevent underlying type expose explicitly.
-                        throw new FormatException(e.Message, e);
-                    }
-                });
+                .ParseNotNull(JsonConvert.DeserializeObject<LogQueryInfo>);
 
         /// <summary>
         /// （TODO: 暂无文档）

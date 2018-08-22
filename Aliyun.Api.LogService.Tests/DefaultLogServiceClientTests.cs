@@ -468,8 +468,7 @@ namespace Aliyun.Api.LogService.Tests
             this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
             this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
             this.output.WriteLine($"{LogHeaders.HasSql}={response.GetHasSql()}");
-            this.output.WriteLine($"{LogHeaders.QueryInfo}(String)={response.GetQueryInfoAsString()}");
-            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dictionary)={response.GetQueryInfoAsDictionary()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}={response.GetQueryInfo()}");
             this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetQueryInfoAsDynamic()}");
             this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetAggQuery()}");
             this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetWhereQuery()}");
@@ -490,8 +489,7 @@ namespace Aliyun.Api.LogService.Tests
             this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
             this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
             this.output.WriteLine($"{LogHeaders.HasSql}={response.GetHasSql()}");
-            this.output.WriteLine($"{LogHeaders.QueryInfo}(String)={response.GetQueryInfoAsString()}");
-            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dictionary)={response.GetQueryInfoAsDictionary()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}={response.GetQueryInfo()}");
             this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetQueryInfoAsDynamic()}");
             this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetAggQuery()}");
             this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetWhereQuery()}");
