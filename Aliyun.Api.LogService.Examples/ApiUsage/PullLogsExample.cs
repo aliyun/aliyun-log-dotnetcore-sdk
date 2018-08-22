@@ -29,6 +29,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Aliyun.Api.LogService.Domain.Log;
+using Aliyun.Api.LogService.Infrastructure.Protocol.Http;
 
 namespace Aliyun.Api.LogService.Examples.ApiUsage
 {
@@ -51,6 +52,9 @@ namespace Aliyun.Api.LogService.Examples.ApiUsage
             // 在指定分片（shard）上从游标（cursor）开始位置获取100条日志
             var response = await client.PullLogsAsync(LogStoreName, shardId, cursor, 100);
             var result = response.EnsureSuccess().Result;
+            
+            // 获取Header上的下一条游标（cursor）位置
+            var nextCursor = response.GetLogCursor();
 
             return result.LogGroups
                 .SelectMany(x => x.Logs);
