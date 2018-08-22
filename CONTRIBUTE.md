@@ -36,26 +36,50 @@
   $ protoc --csharp_out=. --csharp_opt=file_extension=.Generated.cs Log.proto
   ```
   
-- proto3兼容性
+- proto2兼容性
 
   在阿里云服务中使用的是proto2，由于在proto2官方没有对应的C# Stub生成支持，只能使用proto3协议生成stub。
 
   在proto2中，`string`类型字段在为空（非`null`）时回写入字段的标头；但在proto3中会直接跳过整个字段，从而导致服务器无法解释报文。
-  在处理可空的字符串类型时需要使用`google.protobuf.StringValue`包装类型，并且手动在代码中过滤`null`值，如：
+  在处理可空的字符串类型时需要使用修改生成的stub文件，并手动在代码中过滤`null`值，如：
   
   ```csharp
-  proto.Value = value ?? String.Empty
+  // Log.Generated.cs
+
+  public static partial class Types {
+    public sealed partial class Content : pb::IMessage<Content> {
+      public void WriteTo(pb::CodedOutputStream output) {
+        ...
+        // if (Value.Length != 0) {
+        if (value_ != null) {
+          output.WriteRawTag(18);
+          output.WriteString(Value);
+        }
+        ...
+      }
+
+      public int CalculateSize() {
+        ...
+        // if (Value.Length != 0) {
+        if (value_ != null) {
+          size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
+        }
+        ...
+      }
+
+      public void MergeFrom(Content other) {
+        ...
+        // if (other.Value.Length != 0) {
+        if (other.value_ != null) {
+          Value = other.Value;
+        }
+        ...
+      }
   ```
   
-  `StringValue`使用示例如下：
-  ```proto
-  import "google/protobuf/wrappers.proto";
-  
-  message Content
-  {
-      string Key = 1;
-      google.protobuf.StringValue Value = 2;
-  }
+  ```csharp
+  // proto.Value = value;
+  proto.Value = value ?? String.Empty;
   ```
 
 ### 类型公开原则

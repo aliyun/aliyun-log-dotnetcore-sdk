@@ -6,17 +6,15 @@
 syntax = "proto3";
 option csharp_namespace = "Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf";
 
-import "google/protobuf/wrappers.proto";
-
 package aliyun.api.log.infrastructure.serialization.protobuf;
 
 message Log
 {
-    uint32 Time = 1; // UNIX Time Format
+    uint32 Time = 1;// UNIX Time Format
     message Content
     {
         string Key = 1;
-        google.protobuf.StringValue Value = 2;
+        string Value = 2;
     }
     repeated Content Contents= 2;
 
@@ -24,7 +22,7 @@ message Log
 message LogTag
 {
     string Key = 1;
-    google.protobuf.StringValue Value = 2;
+    string Value = 2;
 }
 message LogGroup
 {

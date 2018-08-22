@@ -51,24 +51,22 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
       byte[] descriptorData = global::System.Convert.FromBase64String(
           string.Concat(
             "CglMb2cucHJvdG8SNGFsaXl1bi5hcGkubG9nLmluZnJhc3RydWN0dXJlLnNl",
-            "cmlhbGl6YXRpb24ucHJvdG9idWYaHmdvb2dsZS9wcm90b2J1Zi93cmFwcGVy",
-            "cy5wcm90byKtAQoDTG9nEgwKBFRpbWUYASABKA0SUwoIQ29udGVudHMYAiAD",
-            "KAsyQS5hbGl5dW4uYXBpLmxvZy5pbmZyYXN0cnVjdHVyZS5zZXJpYWxpemF0",
-            "aW9uLnByb3RvYnVmLkxvZy5Db250ZW50GkMKB0NvbnRlbnQSCwoDS2V5GAEg",
-            "ASgJEisKBVZhbHVlGAIgASgLMhwuZ29vZ2xlLnByb3RvYnVmLlN0cmluZ1Zh",
-            "bHVlIkIKBkxvZ1RhZxILCgNLZXkYASABKAkSKwoFVmFsdWUYAiABKAsyHC5n",
-            "b29nbGUucHJvdG9idWYuU3RyaW5nVmFsdWUi6AEKCExvZ0dyb3VwEkcKBExv",
-            "Z3MYASADKAsyOS5hbGl5dW4uYXBpLmxvZy5pbmZyYXN0cnVjdHVyZS5zZXJp",
-            "YWxpemF0aW9uLnByb3RvYnVmLkxvZxIQCghDYXRlZ29yeRgCIAEoCRINCgVU",
-            "b3BpYxgDIAEoCRIOCgZTb3VyY2UYBCABKAkSEwoLTWFjaGluZVVVSUQYBSAB",
-            "KAkSTQoHTG9nVGFncxgGIAMoCzI8LmFsaXl1bi5hcGkubG9nLmluZnJhc3Ry",
-            "dWN0dXJlLnNlcmlhbGl6YXRpb24ucHJvdG9idWYuTG9nVGFnImQKDExvZ0dy",
-            "b3VwTGlzdBJUCgxsb2dHcm91cExpc3QYASADKAsyPi5hbGl5dW4uYXBpLmxv",
-            "Zy5pbmZyYXN0cnVjdHVyZS5zZXJpYWxpemF0aW9uLnByb3RvYnVmLkxvZ0dy",
-            "b3VwQj6qAjtBbGl5dW4uQXBpLkxvZ1NlcnZpY2UuSW5mcmFzdHJ1Y3R1cmUu",
-            "U2VyaWFsaXphdGlvbi5Qcm90b2J1ZmIGcHJvdG8z"));
+            "cmlhbGl6YXRpb24ucHJvdG9idWYijwEKA0xvZxIMCgRUaW1lGAEgASgNElMK",
+            "CENvbnRlbnRzGAIgAygLMkEuYWxpeXVuLmFwaS5sb2cuaW5mcmFzdHJ1Y3R1",
+            "cmUuc2VyaWFsaXphdGlvbi5wcm90b2J1Zi5Mb2cuQ29udGVudBolCgdDb250",
+            "ZW50EgsKA0tleRgBIAEoCRINCgVWYWx1ZRgCIAEoCSIkCgZMb2dUYWcSCwoD",
+            "S2V5GAEgASgJEg0KBVZhbHVlGAIgASgJIugBCghMb2dHcm91cBJHCgRMb2dz",
+            "GAEgAygLMjkuYWxpeXVuLmFwaS5sb2cuaW5mcmFzdHJ1Y3R1cmUuc2VyaWFs",
+            "aXphdGlvbi5wcm90b2J1Zi5Mb2cSEAoIQ2F0ZWdvcnkYAiABKAkSDQoFVG9w",
+            "aWMYAyABKAkSDgoGU291cmNlGAQgASgJEhMKC01hY2hpbmVVVUlEGAUgASgJ",
+            "Ek0KB0xvZ1RhZ3MYBiADKAsyPC5hbGl5dW4uYXBpLmxvZy5pbmZyYXN0cnVj",
+            "dHVyZS5zZXJpYWxpemF0aW9uLnByb3RvYnVmLkxvZ1RhZyJkCgxMb2dHcm91",
+            "cExpc3QSVAoMbG9nR3JvdXBMaXN0GAEgAygLMj4uYWxpeXVuLmFwaS5sb2cu",
+            "aW5mcmFzdHJ1Y3R1cmUuc2VyaWFsaXphdGlvbi5wcm90b2J1Zi5Mb2dHcm91",
+            "cEI+qgI7QWxpeXVuLkFwaS5Mb2dTZXJ2aWNlLkluZnJhc3RydWN0dXJlLlNl",
+            "cmlhbGl6YXRpb24uUHJvdG9idWZiBnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
-          new pbr::FileDescriptor[] { global::Google.Protobuf.WellKnownTypes.WrappersReflection.Descriptor, },
+          new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Parser, new[]{ "Time", "Contents" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Types.Content), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Types.Content.Parser, new[]{ "Key", "Value" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogTag), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogTag.Parser, new[]{ "Key", "Value" }, null, null, null),
@@ -260,7 +258,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public Content(Content other) : this() {
           key_ = other.key_;
-          Value = other.Value;
+          value_ = other.value_;
           _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
         }
 
@@ -282,13 +280,12 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
 
         /// <summary>Field number for the "Value" field.</summary>
         public const int ValueFieldNumber = 2;
-        private static readonly pb::FieldCodec<string> _single_value_codec = pb::FieldCodec.ForClassWrapper<string>(18);
-        private string value_;
+        private string value_ = "";
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
         public string Value {
           get { return value_; }
           set {
-            value_ = value;
+            value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
           }
         }
 
@@ -314,7 +311,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         public override int GetHashCode() {
           int hash = 1;
           if (Key.Length != 0) hash ^= Key.GetHashCode();
-          if (value_ != null) hash ^= Value.GetHashCode();
+          if (Value.Length != 0) hash ^= Value.GetHashCode();
           if (_unknownFields != null) {
             hash ^= _unknownFields.GetHashCode();
           }
@@ -333,7 +330,8 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             output.WriteString(Key);
           }
           if (value_ != null) {
-            _single_value_codec.WriteTagAndValue(output, Value);
+            output.WriteRawTag(18);
+            output.WriteString(Value);
           }
           if (_unknownFields != null) {
             _unknownFields.WriteTo(output);
@@ -347,7 +345,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
           }
           if (value_ != null) {
-            size += _single_value_codec.CalculateSizeWithTag(Value);
+            size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
           }
           if (_unknownFields != null) {
             size += _unknownFields.CalculateSize();
@@ -364,9 +362,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             Key = other.Key;
           }
           if (other.value_ != null) {
-            if (value_ == null || other.Value != "") {
-              Value = other.Value;
-            }
+            Value = other.Value;
           }
           _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
         }
@@ -384,10 +380,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
                 break;
               }
               case 18: {
-                string value = _single_value_codec.Read(input);
-                if (value_ == null || value != "") {
-                  Value = value;
-                }
+                Value = input.ReadString();
                 break;
               }
             }
@@ -427,7 +420,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LogTag(LogTag other) : this() {
       key_ = other.key_;
-      Value = other.Value;
+      value_ = other.value_;
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
 
@@ -449,13 +442,12 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
 
     /// <summary>Field number for the "Value" field.</summary>
     public const int ValueFieldNumber = 2;
-    private static readonly pb::FieldCodec<string> _single_value_codec = pb::FieldCodec.ForClassWrapper<string>(18);
-    private string value_;
+    private string value_ = "";
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public string Value {
       get { return value_; }
       set {
-        value_ = value;
+        value_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -481,7 +473,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     public override int GetHashCode() {
       int hash = 1;
       if (Key.Length != 0) hash ^= Key.GetHashCode();
-      if (value_ != null) hash ^= Value.GetHashCode();
+      if (Value.Length != 0) hash ^= Value.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
       }
@@ -500,7 +492,8 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         output.WriteString(Key);
       }
       if (value_ != null) {
-        _single_value_codec.WriteTagAndValue(output, Value);
+        output.WriteRawTag(18);
+        output.WriteString(Value);
       }
       if (_unknownFields != null) {
         _unknownFields.WriteTo(output);
@@ -514,7 +507,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Key);
       }
       if (value_ != null) {
-        size += _single_value_codec.CalculateSizeWithTag(Value);
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Value);
       }
       if (_unknownFields != null) {
         size += _unknownFields.CalculateSize();
@@ -531,9 +524,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         Key = other.Key;
       }
       if (other.value_ != null) {
-        if (value_ == null || other.Value != "") {
-          Value = other.Value;
-        }
+        Value = other.Value;
       }
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
     }
@@ -551,10 +542,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             break;
           }
           case 18: {
-            string value = _single_value_codec.Read(input);
-            if (value_ == null || value != "") {
-              Value = value;
-            }
+            Value = input.ReadString();
             break;
           }
         }
