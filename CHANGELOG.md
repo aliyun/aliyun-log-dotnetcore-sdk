@@ -1,5 +1,13 @@
 # Aliyun LogServie SDK for .NET Core
 
+## 1.1.0
+
+### 变更内容
+
+- 修正proto3生成的stub对空字符串的处理在proto2中无法读取的问题（#4）
+- 添加所有已知响应头（Response Header）的读取扩展方法[LogHeaderExtensions](Aliyun.Api.LogService/Infrastructure/Protocol/Http/LogHeaderExtensions.cs)
+
+
 ## 1.0.1
 
 ### 变更内容
