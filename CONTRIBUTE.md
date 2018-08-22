@@ -20,10 +20,99 @@
     │   ├── Properties/.......................程序集自身相关信息
     │   │   └── AssemblyInfo.cs
     │   └── Utils/.............................内部工具类
+    ├── Aliyun.Api.LogService.Benchmark/...SDK性能指标项目
     ├── Aliyun.Api.LogService.Examples/....SDK示例项目
     ├── Aliyun.Api.LogService.Tests/.......SDK单元测试项目
     └── docs/..............................文档存放处
 
+## 开发
+
+### Protobuf
+
+- `Log.proto`编译
+
+  ```bash
+  $ cd Aliyun.Api.LogService/Infrastructure/Serialization/Protobuf
+  $ protoc --csharp_out=. --csharp_opt=file_extension=.Generated.cs Log.proto
+  ```
+  
+- proto3兼容性
+
+  在阿里云服务中使用的是proto2，由于在proto2官方没有对应的C# Stub生成支持，只能使用proto3协议生成stub。
+
+  在proto2中，`string`类型字段在为空（非`null`）时回写入字段的标头；但在proto3中会直接跳过整个字段，从而导致服务器无法解释报文。
+  在处理可空的字符串类型时需要使用`google.protobuf.StringValue`包装类型，并且手动在代码中过滤`null`值，如：
+  
+  ```csharp
+  proto.Value = value ?? String.Empty
+  ```
+  
+  `StringValue`使用示例如下：
+  ```proto
+  import "google/protobuf/wrappers.proto";
+  
+  message Content
+  {
+      string Key = 1;
+      google.protobuf.StringValue Value = 2;
+  }
+  ```
+
+### 类型公开原则
+
+项目中对外API相关的类型中禁止出现依赖库相关的外部类型在类型**声明**的层面出现，实现层面不限制。如：
+
+```csharp
+class Foo
+{
+    // 错误，返回值为外部类型
+    JObject get(String key);
+    
+    // 正确，隐藏外部类型
+    IDictionary<String, Object> get(String key);
+    
+    // 推荐，提供访问便利性同时隐藏外部类型
+    dynamic get(String key)
+    {
+        // 实现的代码中直接依赖外部类型是可以的
+        return JObject.Parse("{......}");
+    }
+}
+```
+
+对于部分外部类型（如：[`HttpResponseMessage`](Aliyun.Api.LogService/Infrastructure/Protocol/Http/HttpResponseExtensions.cs#L52)）可以通过在**扩展方法**中声明对应的外部类型，但依旧不能直接在原始的接口或类中声明。
+
+```csharp
+public interface IFoo
+{
+    // 错误，不要在基础接口中声明外部类型
+    HttpResponseMessage Response { get; }
+}
+
+internal class HttpFoo : IFoo
+{
+    // 实现层面可依赖外部类型
+    internal HttpResponseMessage Response { get; }
+}
+
+public static class FooExtensions
+{
+    // 正确，通过扩展方法返回外部类型
+    public static HttpResponseMessage GetResponse(this IFoo source)
+    {
+        return ((HttpFoo)souce).Response;
+    }
+}
+```
+
+### Dynamic支持
+
+在`Aliyun.Api.LogService`项目中，出于便利性对外提供了`dynamic`返回的方法（如：[`LogHeaderExtensions.GetQueryInfoAsDynamic()`](Aliyun.Api.LogService/Infrastructure/Protocol/Http/LogHeaderExtensions.cs#L178)）。
+
+但`Aliyun.Api.LogService`项目中并不支持**使用**dynamic对象，如需使用请按下面步骤添加依赖：
+
+- 添加依赖[`Microsoft.CSharp`](https://www.nuget.org/packages/Microsoft.CSharp)
+- 可执行的项目中添加[`System.Dynamic.Runtime`](https://www.nuget.org/packages/System.Dynamic.Runtime)，如果已是.NetFramework或.NetCoreApp项目可以忽略。
 
 ## 测试
 
