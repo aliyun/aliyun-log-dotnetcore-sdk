@@ -69,10 +69,16 @@ namespace Aliyun.Api.LogService.Tests.TestUtils
             this.ConfigName = $"config-dotnet-sdk-test-{timestamp}";
             this.ShipperName = "shipper-dotnet-sdk-test";
 
+            var (accessKey, accessSecret) = LoadCredential();
             this.Client = LogServiceClientBuilders.HttpBuilder
                 .Endpoint("https://cn-qingdao.log.aliyuncs.com", this.ProjectName)
-                .Credential("<secret>", "<secret>")
+                .Credential(accessKey, accessSecret)
                 .Build();
         }
+
+        private static (String, String) LoadCredential()
+            => Boolean.TryParse(Environment.GetEnvironmentVariable("CI"), out var isCi) && isCi
+                ? (Environment.GetEnvironmentVariable("access_key"), Environment.GetEnvironmentVariable("access_secret"))
+                : ("<secret>", "<secret>");
     }
 }
