@@ -2,10 +2,26 @@
   <PropertyGroup>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <IsPackable>false</IsPackable>
-    <AssemblyOriginatorKeyFile>$(SolutionDir)\aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
-    <SignAssembly>true</SignAssembly>
-    <PublicSign>true</PublicSign>
   </PropertyGroup>
+  <Choose>
+    <When Condition="Exists('$(SolutionDir)aliyun-log-dotnetcore-sdk.snk')">
+      <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign>true</PublicSign>
+        <AssemblyOriginatorKeyFile>$(SolutionDir)/aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
+      </PropertyGroup>
+    </When>
+    <When Condition="Exists('$(ProjectDir)../aliyun-log-dotnetcore-sdk.snk')">
+      <PropertyGroup>
+        <SignAssembly>true</SignAssembly>
+        <PublicSign>true</PublicSign>
+        <AssemblyOriginatorKeyFile>$(ProjectDir)../aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
+      </PropertyGroup>
+    </When>
+    <Otherwise>
+      <!-- No necessary signing assembly when key does not exist -->
+    </Otherwise>
+  </Choose>
   <ItemGroup>
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.7.0" />
     <PackageReference Include="xunit" Version="2.3.1" />
