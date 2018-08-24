@@ -39,6 +39,7 @@ using Xunit;
 
 namespace Aliyun.Api.LogService.Tests
 {
+    [Trait("Skip", "true")]
     public class NetworkPressureTests : IClassFixture<TestContextFixture>, IDisposable
     {
         private const String LogPath = "/tmp/Aliyun.Api.LogService.Tests.NetworkPressureTests.log";
