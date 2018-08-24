@@ -1,0 +1,12 @@
+language: csharp
+
+solution: aliyun-log-dotnetcore-sdk.sln
+mono: none
+dotnet: 2.1.401
+
+install:
+  - dotnet restore
+script:
+  - dotnet clean
+  - dotnet build -c Release
+  - dotnet test  -c Release -v detailed --filter "Skip!=true" Aliyun.Api.LogService.Tests/Aliyun.Api.LogService.Tests.csproj
