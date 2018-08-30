@@ -75,7 +75,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf
                             .Select(kv => new Log.Types.Content
                             {
                                 Key = kv.Key,
-                                Value = kv.Value
+                                Value = kv.Value ?? String.Empty // Empty is allowed, but not null.
                             })
                     }
                 };
@@ -93,7 +93,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf
                             .Select(x => new LogTag
                             {
                                 Key = x.Key,
-                                Value = x.Value
+                                Value = x.Value ?? String.Empty // Empty is allowed, but not null.
                             })
                         ?? Enumerable.Empty<LogTag>()
                     },

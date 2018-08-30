@@ -12,7 +12,7 @@
     <PackageTags>Aliyun </PackageTags>
     <Title>Aliyun LogService .Net Core SDK</Title>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.0.1</PackageVersion>
+    <PackageVersion>1.1.0</PackageVersion>
     <Description>Aliyun LogService SDK for .NET Core.</Description>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(OS)' == 'Release|Windows_NT' ">

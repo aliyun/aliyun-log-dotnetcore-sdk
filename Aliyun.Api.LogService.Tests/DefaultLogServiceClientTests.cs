@@ -363,8 +363,9 @@ namespace Aliyun.Api.LogService.Tests
                 Source = "UnitTest",
                 LogTags = new Dictionary<String, String>
                 {
-                    {"Tag1", "Value1"},
-                    {"Tag2", "Value2"}
+                    {"Tag1", null},
+                    {"Tag2", String.Empty},
+                    {"Tag3", "far"}
                 },
                 Logs = new List<LogInfo>
                 {
@@ -373,7 +374,8 @@ namespace Aliyun.Api.LogService.Tests
                         Time = DateTimeOffset.Now,
                         Contents = new Dictionary<String, String>
                         {
-                            {"foo", "bar"},
+                            {"foo", null},
+                            {"bar", String.Empty},
                             {"far", "baz"}
                         }
                     }
@@ -394,8 +396,9 @@ namespace Aliyun.Api.LogService.Tests
                     Source = "UnitTest",
                     LogTags = new Dictionary<String, String>
                     {
-                        {"Tag1", "Value1"},
-                        {"Tag2", "Value2"}
+                        {"Tag1", null},
+                        {"Tag2", String.Empty},
+                        {"Tag3", "Value2"}
                     },
                     Logs = new List<LogInfo>
                     {
@@ -404,7 +407,8 @@ namespace Aliyun.Api.LogService.Tests
                             Time = DateTimeOffset.Now,
                             Contents = new Dictionary<String, String>
                             {
-                                {"foo", "bar"},
+                                {"foo", null},
+                                {"bar", String.Empty},
                                 {"far", "baz"}
                             }
                         }
@@ -421,6 +425,13 @@ namespace Aliyun.Api.LogService.Tests
             var response = await this.context.Client.PullLogsAsync(this.context.LogStoreName, this.context.WholeShardId, this.context.Cursor, 10);
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.BodyRawSize}={response.GetLogBodyRawSize()}");
+            this.output.WriteLine($"{LogHeaders.CompressType}={response.GetLogCompressType()}");
+            this.output.WriteLine($"{LogHeaders.Cursor}={response.GetLogCursor()}");
         }
 
         [Fact, TestPriority(nameof(TestPostLogStoreLogs))]
@@ -449,6 +460,18 @@ namespace Aliyun.Api.LogService.Tests
 
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.ElapsedMillisecond}={response.GetLogElapsedMillisecond()}");
+            this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
+            this.output.WriteLine($"{LogHeaders.HasSql}={response.GetLogHasSql()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}={response.GetLogQueryInfo()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetLogQueryInfoAsDynamic()}");
+            this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetLogAggQuery()}");
+            this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetLogWhereQuery()}");
         }
 
         [Fact, TestPriority(nameof(TestGetLogStore), nameof(TestPostLogStoreLogs))]
@@ -458,6 +481,18 @@ namespace Aliyun.Api.LogService.Tests
                 $"select count(*) from {this.context.LogStoreName}");
             this.PrintResponse(response, true);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.ElapsedMillisecond}={response.GetLogElapsedMillisecond()}");
+            this.output.WriteLine($"{LogHeaders.ProcessedRows}={response.GetLogProcessedRows()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
+            this.output.WriteLine($"{LogHeaders.HasSql}={response.GetLogHasSql()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}={response.GetLogQueryInfo()}");
+            this.output.WriteLine($"{LogHeaders.QueryInfo}(Dynamic)={response.GetLogQueryInfoAsDynamic()}");
+            this.output.WriteLine($"{LogHeaders.AggQuery}={response.GetLogAggQuery()}");
+            this.output.WriteLine($"{LogHeaders.WhereQuery}={response.GetLogWhereQuery()}");
         }
 
         [Fact, TestPriority(nameof(TestGetLogStore), nameof(TestPostLogStoreLogs))]
@@ -469,6 +504,11 @@ namespace Aliyun.Api.LogService.Tests
                 DateTimeOffset.UtcNow);
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
+
+            this.output.WriteLine("================================");
+            this.output.WriteLine("Known headers:");
+            this.output.WriteLine($"{LogHeaders.Count}={response.GetLogCount()}");
+            this.output.WriteLine($"{LogHeaders.Progress}={response.GetLogProgress()}");
         }
 
         #endregion Log
