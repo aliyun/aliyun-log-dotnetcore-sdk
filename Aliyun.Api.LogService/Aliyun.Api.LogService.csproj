@@ -12,7 +12,7 @@
     <PackageTags>Aliyun </PackageTags>
     <Title>Aliyun LogService .Net Core SDK</Title>
     <PackOnBuild>true</PackOnBuild>
-    <PackageVersion>1.1.0</PackageVersion>
+    <PackageVersion>1.2.0</PackageVersion>
     <Description>Aliyun LogService SDK for .NET Core.</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
@@ -22,17 +22,14 @@
     <AssemblyOriginatorKeyFile>$(SolutionDir)\aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
   </PropertyGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.0' ">
-    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
   </ItemGroup>
   <ItemGroup Condition=" '$(TargetFramework)' == 'netstandard2.1' ">
     <PackageReference Include="System.Text.Json" Version="4.6.0-rc1.19456.4" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="Google.Protobuf" Version="3.5.1" />
+    <PackageReference Include="Google.Protobuf" Version="3.9.1" />
     <PackageReference Include="Iconic.Zlib.Netstandard" Version="1.0.0" />
     <PackageReference Include="lz4net" Version="1.0.15.93" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Polyfill\" />
   </ItemGroup>
 </Project>
