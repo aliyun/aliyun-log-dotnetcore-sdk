@@ -28,8 +28,12 @@ using System;
 using System.Collections.Generic;
 using Aliyun.Api.LogService.Domain.Log;
 using Aliyun.Api.LogService.Utils;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+#else
+using System.Text.Json;
+#endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
@@ -79,7 +83,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <seealso cref="CompressType"/>
         public static CompressType? GetLogCompressType(this IResponse<PullLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.CompressType)
-                .ParseNullable(x => (CompressType) Enum.Parse(typeof(CompressType), x, true));
+                .ParseNullable(x => (CompressType)Enum.Parse(typeof(CompressType), x, true));
 
         /// <summary>
         /// 获取响应消息中 Body 的原始大小。
@@ -104,7 +108,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <seealso cref="LogProgressState"/>
         public static LogProgressState GetLogProgress(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.Progress)
-                .ParseNotNull(x => (LogProgressState) Enum.Parse(typeof(LogProgressState), x, true));
+                .ParseNotNull(x => (LogProgressState)Enum.Parse(typeof(LogProgressState), x, true));
 
         /// <summary>
         /// 获取当前返回数量。
@@ -143,7 +147,11 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <returns></returns>
         public static LogQueryInfo GetLogQueryInfo(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
+#if NETSTANDARD2_0
                 .ParseNotNull(JsonConvert.DeserializeObject<LogQueryInfo>);
+#else
+                .ParseNotNull(s => JsonSerializer.Deserialize<LogQueryInfo>(s));
+#endif
 
         /// <summary>
         /// （TODO: 暂无文档）
@@ -153,6 +161,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <exception cref="FormatException">Header的值不是JSON对象形式。</exception>
         public static dynamic GetLogQueryInfoAsDynamic(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
+#if NETSTANDARD2_0
                 .ParseNotNull(x =>
                 {
                     if (x.IsEmpty())
@@ -163,12 +172,32 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     try
                     {
                         return JObject.Parse(x);
-                    } catch (JsonReaderException e)
+                    }
+                    catch (JsonReaderException e)
                     {
                         // Prevent underlying type expose explicitly.
                         throw new FormatException(e.Message, e);
                     }
                 });
+#else
+                .ParseNotNull(x =>
+                {
+                    if (x.IsEmpty())
+                    {
+                        return JsonDocument.Parse("{}");
+                    }
+
+                    try
+                    {
+                        return JsonDocument.Parse(x);
+                    }
+                    catch (JsonException e)
+                    {
+                        // Prevent underlying type expose explicitly.
+                        throw new FormatException(e.Message, e);
+                    }
+                });
+#endif
 
         /// <summary>
         /// （TODO: 暂无文档）
@@ -218,7 +247,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         /// <seealso cref="LogProgressState"/>
         public static LogProgressState GetLogProgress(this IResponse<GetLogHistogramsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.Progress)
-                .ParseNotNull(x => (LogProgressState) Enum.Parse(typeof(LogProgressState), x, true));
+                .ParseNotNull(x => (LogProgressState)Enum.Parse(typeof(LogProgressState), x, true));
 
         #endregion
     }

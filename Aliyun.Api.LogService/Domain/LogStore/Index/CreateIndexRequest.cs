@@ -27,7 +27,11 @@
 using System;
 using System.Collections.Generic;
 using Aliyun.Api.LogService.Domain.Project;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
+#else
+using System.Text.Json.Serialization;
+#endif
 
 namespace Aliyun.Api.LogService.Domain.LogStore.Index
 {

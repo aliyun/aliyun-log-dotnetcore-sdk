@@ -27,7 +27,11 @@
 using System;
 using System.Collections.Generic;
 using Aliyun.Api.LogService.Utils;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
+#else
+using System.Text.Json.Serialization;
+#endif
 
 namespace Aliyun.Api.LogService.Domain.LogStore.Index
 {
@@ -45,7 +49,11 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Index
         /// <summary>
         /// 是否支持统计分析，默认值为false，标识不支持。
         /// </summary>
+#if NETSTANDARD2_0
         [JsonProperty("doc_value")]
+#else
+        [JsonPropertyName("doc_value")]
+#endif
         public Boolean? DocValue { get; set; }
 
         /// <summary>
@@ -114,19 +122,31 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Index
         /// <summary>
         /// 是否对所有json key进行索引，默认为否。
         /// </summary>
+#if NETSTANDARD2_0
         [JsonProperty("index_all")]
+#else
+        [JsonPropertyName("index_all")]
+#endif
         public Boolean? IndexAll { get; set; }
 
         /// <summary>
         /// 表示解析json的最大深度。
         /// </summary>
+#if NETSTANDARD2_0
         [JsonProperty("max_depth")]
+#else
+        [JsonPropertyName("max_depth")]
+#endif
         public Int32 MaxDepth { get; }
 
         /// <summary>
         /// 表示json中具体key的索引属性。 其中object中每个item支持text，long和double三种类型，属性对应类型一致。
         /// </summary>
+#if NETSTANDARD2_0
         [JsonProperty("json_keys")]
+#else
+        [JsonPropertyName("json_keys")]
+#endif
         public IDictionary<String, IndexKeyInfo> JsonKeys { get; set; }
 
         public IndexJsonKeyInfo(IEnumerable<Char> token, Int32 maxDepth)

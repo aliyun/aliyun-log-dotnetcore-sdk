@@ -37,9 +37,15 @@ using Aliyun.Api.LogService.Utils;
 using Google.Protobuf;
 using Ionic.Zlib;
 using LZ4;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using Newtonsoft.Json.Serialization;
+#else
+using System.Text.Json;
+using System.Text.Json.Serialization;
+using System.Web;
+#endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
@@ -51,11 +57,19 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
     {
         private static readonly Byte[] EmptyByteArray = new Byte[0];
 
+#if NETSTANDARD2_0
         private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
         {
             ContractResolver = new CamelCasePropertyNamesContractResolver(),
             NullValueHandling = NullValueHandling.Ignore
         };
+#else
+        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
+        {
+            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
+            IgnoreNullValues = true
+        };
+#endif
 
         private readonly HttpRequestMessage httpRequestMessage;
 
@@ -110,6 +124,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         private static void ParseUri(String uri, out String path, out IDictionary<String, String> query)
         {
+
             var absUri = new Uri(new Uri("http://fa.ke"), uri);
             path = absUri.AbsolutePath;
             query = absUri.ParseQueryString()
@@ -134,11 +149,19 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         public IRequestBuilder<HttpRequestMessage> Query(Object queryModel)
         {
+#if NETSTANDARD2_0
             foreach (var kv in JObject.FromObject(queryModel, JsonSerializer.CreateDefault(JsonSerializerSettings)))
             {
                 this.query.Add(kv.Key, kv.Value.Value<String>());
             }
-
+#else
+            var buff = JsonSerializer.SerializeToUtf8Bytes(queryModel);
+            var kvs = JsonSerializer.Deserialize<Dictionary<string, string>>(new Span<byte>(buff));
+            foreach (var kv in kvs)
+            {
+                this.query.Add(kv.Key, kv.Value);
+            }
+#endif
             return this;
         }
 
@@ -163,7 +186,8 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             if (this.httpRequestMessage.Content == null)
             {
                 this.contentHandler += () => option(this.httpRequestMessage.Content.Headers);
-            } else
+            }
+            else
             {
                 option(this.httpRequestMessage.Content.Headers);
             }
@@ -184,7 +208,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         #region Content
 
         public IRequestBuilder<HttpRequestMessage> Content(Byte[] content)
-            => this.Content((Object) content);
+            => this.Content((Object)content);
 
         public IRequestBuilder<HttpRequestMessage> Content(Object content)
         {
@@ -216,31 +240,35 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             switch (serializeType)
             {
                 case SerializeType.Json:
-                {
-                    this.ContentHeader(x => x.ContentType = new MediaTypeHeaderValue("application/json"));
-                    var json = JsonConvert.SerializeObject(this.content, JsonSerializerSettings);
-                    this.Content(this.encoding.GetBytes(json));
-
-                    break;
-                }
-
-                case SerializeType.Protobuf:
-                {
-                    if (!(this.content is IMessage protoMessage))
                     {
-                        throw new ArgumentException("Serialization of ProtoBuf requires IMessage.");
+                        this.ContentHeader(x => x.ContentType = new MediaTypeHeaderValue("application/json"));
+#if NETSTANDARD2_0
+                        var json = JsonConvert.SerializeObject(this.content, JsonSerializerSettings);
+#else
+                        var json = JsonSerializer.Serialize(this.content, JsonSerializerOptions);
+#endif
+                        this.Content(this.encoding.GetBytes(json));
+
+                        break;
                     }
 
-                    this.ContentHeader(x => x.ContentType = new MediaTypeHeaderValue("application/x-protobuf"));
-                    this.Content(protoMessage.ToByteArray());
+                case SerializeType.Protobuf:
+                    {
+                        if (!(this.content is IMessage protoMessage))
+                        {
+                            throw new ArgumentException("Serialization of ProtoBuf requires IMessage.");
+                        }
 
-                    break;
-                }
+                        this.ContentHeader(x => x.ContentType = new MediaTypeHeaderValue("application/x-protobuf"));
+                        this.Content(protoMessage.ToByteArray());
+
+                        break;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException(nameof(serializeType), serializeType, null);
-                }
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(serializeType), serializeType, null);
+                    }
             }
 
             return this;
@@ -261,28 +289,28 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             switch (compressType)
             {
                 case CompressType.None:
-                {
-                    break;
-                }
+                    {
+                        break;
+                    }
 
                 case CompressType.Lz4:
-                {
-                    this.SetCompressType("lz4");
-                    this.content = LZ4Codec.Encode(this.SerializedContent, 0, this.SerializedContent.Length);
-                    break;
-                }
+                    {
+                        this.SetCompressType("lz4");
+                        this.content = LZ4Codec.Encode(this.SerializedContent, 0, this.SerializedContent.Length);
+                        break;
+                    }
 
                 case CompressType.Deflate:
-                {
-                    this.SetCompressType("deflate");
-                    this.content = ZlibStream.CompressBuffer(this.SerializedContent);
-                    break;
-                }
+                    {
+                        this.SetCompressType("deflate");
+                        this.content = ZlibStream.CompressBuffer(this.SerializedContent);
+                        break;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException(nameof(compressType), compressType, null);
-                }
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(compressType), compressType, null);
+                    }
             }
 
             return this;
@@ -319,21 +347,21 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             switch (this.signatureType)
             {
                 case SignatureType.HmacSha1:
-                {
-                    using (var hasher = new HMACSHA1(this.encoding.GetBytes(this.credential.AccessKey)))
                     {
-                        this.SetSignatureMethod("hmac-sha1"); // This header must be set before generating sign source.
-                        var signSource = this.GenerateSignSource();
-                        var sign = hasher.ComputeHash(this.encoding.GetBytes(signSource));
+                        using (var hasher = new HMACSHA1(this.encoding.GetBytes(this.credential.AccessKey)))
+                        {
+                            this.SetSignatureMethod("hmac-sha1"); // This header must be set before generating sign source.
+                            var signSource = this.GenerateSignSource();
+                            var sign = hasher.ComputeHash(this.encoding.GetBytes(signSource));
 
-                        return sign;
+                            return sign;
+                        }
                     }
-                }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException(nameof(this.signatureType), this.signatureType, "Currently only support [hmac-sha1] signature.");
-                }
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(this.signatureType), this.signatureType, "Currently only support [hmac-sha1] signature.");
+                    }
             }
         }
 
@@ -373,7 +401,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             Ensure.NotNull(this.credential, nameof(this.credential));
             Ensure.NotEmpty(this.credential.AccessKeyId, nameof(this.credential.AccessKeyId));
             Ensure.NotEmpty(this.credential.AccessKey, nameof(this.credential.AccessKey));
-           
+
             // Rebuild the RequestUri
             var queryString = String.Join("&", this.query
                 .OrderBy(x => x.Key)
@@ -395,7 +423,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             {
                 this.SetBodyRawSize(0);
             }
-            
+
             // Build content if necessary
             if (this.SerializedContent.IsNotEmpty())
             {
@@ -412,7 +440,8 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
                     x.Add("Content-MD5", this.contentMd5Hex); // Non-standard header
                 });
-            } else if (this.httpRequestMessage.Method == HttpMethod.Post || this.httpRequestMessage.Method == HttpMethod.Put)
+            }
+            else if (this.httpRequestMessage.Method == HttpMethod.Post || this.httpRequestMessage.Method == HttpMethod.Put)
             {
                 // When content is empty as well as method is `POST` or `PUT`, generate an empty content and corresponding headers.
 

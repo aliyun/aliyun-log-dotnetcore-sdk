@@ -39,7 +39,11 @@ using Aliyun.Api.LogService.Domain.Project;
 using Aliyun.Api.LogService.Infrastructure.Authentication;
 using Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf;
 using Aliyun.Api.LogService.Utils;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
+#endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
@@ -244,7 +248,11 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     // Parse QueryInfo
                     if (httpHeaders.TryGetValue(LogHeaders.QueryInfo, out var queryInfoValue))
                     {
+#if NETSTANDARD2_0
                         newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue);
+#else
+                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue);
+#endif
                     }
 
                     return newResult;
@@ -276,7 +284,11 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     // Parse QueryInfo
                     if (httpHeaders.TryGetValue(LogHeaders.QueryInfo, out var queryInfoValue))
                     {
+#if NETSTANDARD2_0
                         newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue);
+#else
+                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue);
+#endif
                     }
 
                     return newResult;
@@ -307,10 +319,10 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     return newResult;
                 });
 
-        #endregion Logs
+#endregion Logs
 
 
-        #region MachineGroup
+#region MachineGroup
 
         public Task<IResponse> CreateMachineGroupAsync(CreateMachineGroupRequest request)
             => this.SendRequestAsync(
@@ -363,10 +375,10 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                 new HttpRequestMessageBuilder(HttpMethod.Get, $"/machinegroups/{request.GroupName}/configs"),
                 project:request.ProjectName);
 
-        #endregion MachineGroup
+#endregion MachineGroup
 
 
-        #region Config
+#region Config
 
         public Task<IResponse> CreateConfigAsync(CreateConfigRequest request)
             => this.SendRequestAsync(
@@ -403,10 +415,10 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     .Serialize(SerializeType.Json),
                 project:request.ProjectName);
 
-        #endregion Config
+#endregion Config
 
 
-        #region Project
+#region Project
 
         public Task<IResponse> CreateProjectAsync(CreateProjectRequest request)
             => this.SendRequestAsync(
@@ -434,6 +446,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                 new HttpRequestMessageBuilder(HttpMethod.Delete, "/"),
                 project: request.ProjectName);
 
-        #endregion Project
+#endregion Project
     }
 }

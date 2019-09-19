@@ -36,14 +36,18 @@ using System.Threading.Tasks;
 using Aliyun.Api.LogService.Utils;
 using Ionic.Zlib;
 using LZ4;
+#if NETSTANDARD2_0
 using Newtonsoft.Json;
+#else
+using System.Text.Json;
+#endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 {
     public class HttpResponseMessageResolver : IResponseResolver
     {
         public HttpResponseMessage HttpResponseMessage { get; }
-        
+
         public String RequestId { get; private set; }
 
         public Boolean IsSuccess { get; private set; }
@@ -170,31 +174,31 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             switch (compressType)
             {
                 case CompressType.None:
-                {
-                    return orignData;
-                }
-
-                case CompressType.Lz4:
-                {
-                    if (!rawSize.HasValue)
                     {
-                        throw new ArgumentException($"{LogHeaders.BodyRawSize} is required when using [lz4] compress.");
+                        return orignData;
                     }
 
-                    var rawData = LZ4Codec.Decode(orignData, 0, orignData.Length, rawSize.Value);
-                    return rawData;
-                }
+                case CompressType.Lz4:
+                    {
+                        if (!rawSize.HasValue)
+                        {
+                            throw new ArgumentException($"{LogHeaders.BodyRawSize} is required when using [lz4] compress.");
+                        }
+
+                        var rawData = LZ4Codec.Decode(orignData, 0, orignData.Length, rawSize.Value);
+                        return rawData;
+                    }
 
                 case CompressType.Deflate:
-                {
-                    var rawData = ZlibStream.UncompressBuffer(orignData);
-                    return rawData;
-                }
+                    {
+                        var rawData = ZlibStream.UncompressBuffer(orignData);
+                        return rawData;
+                    }
 
                 default:
-                {
-                    throw new ArgumentOutOfRangeException(nameof(compressType), compressType, null);
-                }
+                    {
+                        throw new ArgumentOutOfRangeException(nameof(compressType), compressType, null);
+                    }
             }
         }
 
@@ -204,12 +208,17 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         private Object AutoDeserializeContent(Byte[] data, Type resultType)
         {
+#if NETSTANDARD2_0
             // Content negotiate is not supported.
             using (var stream = new MemoryStream(data, false))
             using (var textReader = new StreamReader(stream, Encoding.UTF8 /*TODO: Hard code*/))
             {
                 return JsonSerializer.CreateDefault().Deserialize(textReader, resultType);
             }
+#else
+            var buff = new Span<byte>(data);
+            return JsonSerializer.Deserialize(buff, resultType);
+#endif
         }
 
         #endregion
@@ -246,7 +255,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             data = this.decompressor(data);
             var result = this.deserializer(data, typeof(TResult));
 
-            return (TResult) result; // Always safe! Expect the custom serializer does some weird operations.
+            return (TResult)result; // Always safe! Expect the custom serializer does some weird operations.
         }
 
         public async Task<IResponse> ResolveAsync()
