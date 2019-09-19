@@ -57,19 +57,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
     {
         private static readonly Byte[] EmptyByteArray = new Byte[0];
 
-#if NETSTANDARD2_0
-        private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
-        {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
-            NullValueHandling = NullValueHandling.Ignore
-        };
-#else
-        private static readonly JsonSerializerOptions JsonSerializerOptions = new JsonSerializerOptions
-        {
-            PropertyNamingPolicy = JsonNamingPolicy.CamelCase,
-            IgnoreNullValues = true
-        };
-#endif
 
         private readonly HttpRequestMessage httpRequestMessage;
 
@@ -150,16 +137,16 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         public IRequestBuilder<HttpRequestMessage> Query(Object queryModel)
         {
 #if NETSTANDARD2_0
-            foreach (var kv in JObject.FromObject(queryModel, JsonSerializer.CreateDefault(JsonSerializerSettings)))
+            foreach (var kv in JObject.FromObject(queryModel, JsonSerializer.CreateDefault(JsonSettings.Default)))
             {
                 this.query.Add(kv.Key, kv.Value.Value<String>());
             }
 #else
-            var buff = JsonSerializer.SerializeToUtf8Bytes(queryModel);
-            var kvs = JsonSerializer.Deserialize<Dictionary<string, string>>(new Span<byte>(buff));
+            var buff = JsonSerializer.Serialize(queryModel, JsonSettings.Default);
+            var kvs = JsonSerializer.Deserialize<Dictionary<string, object>>(buff, JsonSettings.Default);
             foreach (var kv in kvs)
             {
-                this.query.Add(kv.Key, kv.Value);
+                this.query.Add(kv.Key, Convert.ToString(kv.Value));
             }
 #endif
             return this;
@@ -243,9 +230,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     {
                         this.ContentHeader(x => x.ContentType = new MediaTypeHeaderValue("application/json"));
 #if NETSTANDARD2_0
-                        var json = JsonConvert.SerializeObject(this.content, JsonSerializerSettings);
+                        var json = JsonConvert.SerializeObject(this.content, JsonSettings.Default);
 #else
-                        var json = JsonSerializer.Serialize(this.content, JsonSerializerOptions);
+                        var json = JsonSerializer.Serialize(this.content, JsonSettings.Default);
 #endif
                         this.Content(this.encoding.GetBytes(json));
 

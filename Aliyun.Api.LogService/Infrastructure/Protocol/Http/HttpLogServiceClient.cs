@@ -249,9 +249,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     if (httpHeaders.TryGetValue(LogHeaders.QueryInfo, out var queryInfoValue))
                     {
 #if NETSTANDARD2_0
-                        newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue);
+                        newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue, JsonSettings.Default);
 #else
-                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue);
+                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue, JsonSettings.Default);
 #endif
                     }
 
@@ -285,9 +285,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                     if (httpHeaders.TryGetValue(LogHeaders.QueryInfo, out var queryInfoValue))
                     {
 #if NETSTANDARD2_0
-                        newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue);
+                        newResult.QueryInfo = JsonConvert.DeserializeObject<LogQueryInfo>(queryInfoValue, JsonSettings.Default);
 #else
-                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue);
+                        newResult.QueryInfo = JsonSerializer.Deserialize<LogQueryInfo>(queryInfoValue, JsonSettings.Default);
 #endif
                     }
 

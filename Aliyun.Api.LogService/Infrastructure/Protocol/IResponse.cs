@@ -41,24 +41,24 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol
         /// <summary>
         /// 当前响应是否为一个成功的响应。
         /// </summary>
-        Boolean IsSuccess { get; }
+        Boolean IsSuccess { get; set; }
         
         /// <summary>
         /// 服务端产生的标示该请求的唯一 ID。
         /// 该响应头与具体应用无关，主要用于跟踪和调查问题。
         /// 如果用户希望调查出现问题的 API 请求，可以向 Log Service 团队提供该 ID。
         /// </summary>
-        String RequestId { get; }
+        String RequestId { get; set; }
 
         /// <summary>
         /// 当前响应的元数据。
         /// </summary>
-        IDictionary<String, String> Headers { get; }
+        IDictionary<String, String> Headers { get; set; }
 
         /// <summary>
         /// 当前响应包含的错误信息，在<see cref="IsSuccess"/>为<c>false</c>时存在。
         /// </summary>
-        Error Error { get; }
+        Error Error { get; set; }
 
         /// <summary>
         /// 确保当前响应是成功的，否则将抛出包含错误码及错误消息的 <see cref="LogServiceException"/> 。

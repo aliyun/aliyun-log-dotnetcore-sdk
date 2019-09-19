@@ -15,9 +15,9 @@ namespace Aliyun.Api.LogService
             T result = default;
             var content = await httpContent.ReadAsStringAsync();
 #if NETSTANDARD2_0
-            result = JsonConvert.DeserializeObject<T>(content);
+            result = JsonConvert.DeserializeObject<T>(content, JsonSettings.Default);
 #else
-            result = JsonSerializer.Deserialize<T>(content);
+            result = JsonSerializer.Deserialize<T>(content, JsonSettings.Default);
 #endif
             return result;
         }

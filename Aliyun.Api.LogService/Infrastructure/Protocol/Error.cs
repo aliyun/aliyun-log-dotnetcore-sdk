@@ -25,6 +25,11 @@
 // THE SOFTWARE.
 
 using System;
+#if NETSTANDARD2_0
+using Newtonsoft.Json;
+#else
+using System.Text.Json.Serialization;
+#endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol
 {
@@ -36,17 +41,29 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol
         /// <summary>
         /// 错误码
         /// </summary>
-        public ErrorCode ErrorCode { get; }
+        [JsonIgnore]
+        public ErrorCode _ErrorCode { get; set; }
+
+        public string ErrorCode
+        {
+            get => _ErrorCode.Code;
+            set => _ErrorCode = value;
+        }
 
         /// <summary>
         /// 错误消息
         /// </summary>
-        public String ErrorMessage { get; }
+        public String ErrorMessage { get; set; }
 
         public Error(ErrorCode errorCode, String errorMessage)
         {
             this.ErrorCode = errorCode;
             this.ErrorMessage = errorMessage;
+        }
+
+        public Error()
+        {
+
         }
 
         public override String ToString()

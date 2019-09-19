@@ -71,8 +71,7 @@ namespace Aliyun.Api.LogService.Tests
         {
             var serializer = JsonSerializer.CreateDefault(Settings);
 
-            var printObject = new JObject
-            {
+            var printObject = new Dictionary<string, object> {
                 {"IsSuccess", response.IsSuccess},
                 {"StatusCode", new JValue(response.GetHttpStatusCode())},
                 {"Headers", JToken.FromObject(response.Headers, serializer)},
@@ -84,7 +83,7 @@ namespace Aliyun.Api.LogService.Tests
                 var originContent = response.GetHttpResponseMessage().Content;
                 if (originContent != null && formatter.SupportedMediaTypes.Contains(originContent.Headers.ContentType))
                 {
-                    var originResult = originContent.ReadAsAsync<JToken>().Result;
+                    var originResult = originContent.ReadAsStringAsync().Result;
                     printObject.Add("Data", originResult);
                 }
             }

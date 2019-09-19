@@ -30,11 +30,16 @@ namespace Aliyun.Api.LogService.Domain.Config
 {
     public class ConfigOutputDetailInfo
     {
-        public String LogstoreName { get; }
+        public String LogstoreName { get; set; }
 
         public ConfigOutputDetailInfo(String logstoreName)
         {
             this.LogstoreName = logstoreName;
+        }
+
+        public ConfigOutputDetailInfo()
+        {
+
         }
     }
 }

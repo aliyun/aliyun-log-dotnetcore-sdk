@@ -34,17 +34,22 @@ namespace Aliyun.Api.LogService.Domain.Log
         /// <summary>
         /// 
         /// </summary>
-        public IList<String> Keys { get; }
+        public IList<String> Keys { get; set; }
 
         /// <summary>
         /// 
         /// </summary>
-        public IList<IList<String>> Terms { get; }
+        public IList<IList<String>> Terms { get; set; }
 
         public LogQueryInfo(IList<String> keys, IList<IList<String>> terms)
         {
             this.Keys = keys;
             this.Terms = terms;
+        }
+
+        public LogQueryInfo()
+        {
+
         }
     }
 }

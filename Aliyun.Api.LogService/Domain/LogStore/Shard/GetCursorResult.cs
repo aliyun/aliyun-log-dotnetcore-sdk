@@ -33,11 +33,16 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Shard
         /// <summary>
         /// 游标
         /// </summary>
-        public String Cursor { get; }
+        public String Cursor { get; set; }
 
         public GetCursorResult(String cursor)
         {
             this.Cursor = cursor;
+        }
+
+        public GetCursorResult()
+        {
+
         }
     }
 }

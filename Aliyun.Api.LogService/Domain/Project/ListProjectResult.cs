@@ -34,23 +34,28 @@ namespace Aliyun.Api.LogService.Domain.Project
         /// <summary>
         /// 返回project数量。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// project总数。
         /// </summary>
-        public Int32 Total { get; }
+        public Int32 Total { get; set; }
 
         /// <summary>
         /// 返回的project属性列表。
         /// </summary>
-        public IList<ProjectInfo> Projects { get; }
+        public IList<ProjectInfo> Projects { get; set; }
 
         public ListProjectResult(Int32 count, Int32 total, IList<ProjectInfo> projects)
         {
             this.Count = count;
             this.Total = total;
             this.Projects = projects;
+        }
+
+        public ListProjectResult()
+        {
+
         }
     }
 }

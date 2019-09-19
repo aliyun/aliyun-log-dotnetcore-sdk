@@ -33,27 +33,27 @@ namespace Aliyun.Api.LogService.Domain.LogStore
         ///<summary>
         /// logstore 的名称， 在该 project 下唯一。
         ///</summary>
-        public String LogstoreName { get; }
+        public String LogstoreName { get; set; }
 
         ///<summary>
         /// 日志数据生命周期（TTL），单位为天，最小为 1 天。
         ///</summary>
-        public Int32 Ttl { get; }
+        public Int32 Ttl { get; set; }
 
         ///<summary>
         /// 日志数据 服务单元。
         ///</summary>
-        public Int32 ShardCount { get; }
+        public Int32 ShardCount { get; set; }
 
         ///<summary>
         /// 该资源服务端创建时间。
         ///</summary>
-        public Int32 CreateTime { get; }
+        public Int32 CreateTime { get; set; }
 
         ///<summary>
         /// 该资源服务端更新时间。
         ///</summary>
-        public Int32 LastModifyTime { get; }
+        public Int32 LastModifyTime { get; set; }
 
         public GetLogStoreResult(String logstoreName, Int32 ttl, Int32 shardCount, Int32 createTime, Int32 lastModifyTime)
         {
@@ -62,6 +62,11 @@ namespace Aliyun.Api.LogService.Domain.LogStore
             this.ShardCount = shardCount;
             this.CreateTime = createTime;
             this.LastModifyTime = lastModifyTime;
+        }
+
+        public GetLogStoreResult()
+        {
+
         }
     }
 }

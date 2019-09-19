@@ -37,52 +37,52 @@ namespace Aliyun.Api.LogService.Domain.Config
         /// <summary>
         /// 日志类型，现在只支持 common_reg_log。
         /// </summary>
-        public String LogType { get; }
+        public String LogType { get; set; }
 
         /// <summary>
         /// 日志所在的父目录，例如 /var/logs/。
         /// </summary>
-        public String LogPath { get; }
+        public String LogPath { get; set; }
 
         /// <summary>
         /// 日志文件的Pattern，例如 access*.log。
         /// </summary>
-        public String FilePattern { get; }
+        public String FilePattern { get; set; }
 
         /// <summary>
         /// 是否打开本地缓存，在服务端之间链路断开的情况下，本地可以缓存 1GB 日志。
         /// </summary>
-        public Boolean LocalStorage { get; }
+        public Boolean LocalStorage { get; set; }
 
         /// <summary>
         /// 日志时间格式, 如 %Y/%m/%d %H:%M:%S。
         /// </summary>
-        public String TimeFormat { get; }
+        public String TimeFormat { get; set; }
 
         /// <summary>
         /// 日志首行特征（正则表达式），由于匹配多行日志组成一条 log 的情况。
         /// </summary>
-        public String LogBeginRegex { get; }
+        public String LogBeginRegex { get; set; }
 
         /// <summary>
         /// 日志对提取正则表达式。
         /// </summary>
-        public String Regex { get; }
+        public String Regex { get; set; }
 
         /// <summary>
         /// 日志提取后所生成的 Key。
         /// </summary>
-        public IList<String> Key { get; }
+        public IList<String> Key { get; set; }
 
         /// <summary>
         /// 用于过滤日志所用到的 key，只有 key 的值满足对应 filterRegex 列中设定的正则表达式日志才是符合要求的。
         /// </summary>
-        public IList<String> FilterKey { get; }
+        public IList<String> FilterKey { get; set; }
 
         /// <summary>
         /// 和每个 filterKey 对应的正则表达式， filterRegex 的长度和 filterKey 的长度必须相同。
         /// </summary>
-        public IList<String> FilterRegex { get; }
+        public IList<String> FilterRegex { get; set; }
 
         /// <summary>
         /// Topic 生成方式，支持以下四种类型：
@@ -122,6 +122,11 @@ namespace Aliyun.Api.LogService.Domain.Config
             this.Key = key?.ToList();
             this.FilterKey = filterKey?.ToList();
             this.FilterRegex = filterRegex?.ToList();
+        }
+
+        public ConfigInputDetailInfo()
+        {
+
         }
     }
 }

@@ -34,17 +34,17 @@ namespace Aliyun.Api.LogService.Domain.MachineGroup
         /// <summary>
         /// 返回的 machinegroup 数目。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// 返回 machinegroup 总数。
         /// </summary>
-        public Int32 Total { get; }
+        public Int32 Total { get; set; }
 
         /// <summary>
         /// 返回的 machinegroup 名称列表。
         /// </summary>
-        public IList<MachineInfo> Machines { get; }
+        public IList<MachineInfo> Machines { get; set; }
 
         public ListMachinesResult(Int32 count, Int32 total, IList<MachineInfo> machines)
         {
@@ -53,27 +53,32 @@ namespace Aliyun.Api.LogService.Domain.MachineGroup
             this.Machines = machines;
         }
 
+        public ListMachinesResult()
+        {
+
+        }
+
         public class MachineInfo
         {
             /// <summary>
             /// 机器的 IP。
             /// </summary>
-            public String Ip { get; }
+            public String Ip { get; set; }
 
             /// <summary>
             /// 机器 DMI UUID。
             /// </summary>
-            public String MachineUniqueId { get; }
+            public String MachineUniqueId { get; set; }
 
             /// <summary>
             /// 机器的用户自定义标识。
             /// </summary>
-            public String UserDefinedId { get; }
+            public String UserDefinedId { get; set; }
 
             /// <summary>
             /// 机器最后的心跳时间。
             /// </summary>
-            public String LastHeartbeatTime { get; }
+            public String LastHeartbeatTime { get; set; }
 
             public MachineInfo(String ip, String machineUniqueId, String userDefinedId, String lastHeartbeatTime)
             {
@@ -81,6 +86,11 @@ namespace Aliyun.Api.LogService.Domain.MachineGroup
                 this.MachineUniqueId = machineUniqueId;
                 this.UserDefinedId = userDefinedId;
                 this.LastHeartbeatTime = lastHeartbeatTime;
+            }
+
+            public MachineInfo()
+            {
+
             }
         }
     }

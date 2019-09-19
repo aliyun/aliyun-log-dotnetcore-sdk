@@ -33,23 +33,28 @@ namespace Aliyun.Api.LogService.Domain.Project
         /// <summary>
         /// project名称。
         /// </summary>
-        public String ProjectName { get; }
+        public String ProjectName { get; set; }
 
         /// <summary>
         /// project状态，分为"Normal"（正常）和"Disable"（欠费停用）。
         /// </summary>
-        public ProjectState Status { get; }
+        public ProjectState Status { get; set; }
 
         /// <summary>
         /// project描述。
         /// </summary>
-        public String Description { get; }
+        public String Description { get; set; }
 
         public ProjectInfo(String projectName, ProjectState status, String description)
         {
             this.ProjectName = projectName;
             this.Status = status;
             this.Description = description;
+        }
+
+        public ProjectInfo()
+        {
+
         }
     }
 }

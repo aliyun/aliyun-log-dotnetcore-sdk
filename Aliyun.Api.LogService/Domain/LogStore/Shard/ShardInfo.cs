@@ -33,7 +33,7 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Shard
         /// <summary>
         /// Shard ID，分区号。
         /// </summary>
-        public Int32 ShardId { get; }
+        public Int32 ShardId { get; set; }
 
         /// <summary>
         /// 分区的状态。
@@ -42,22 +42,22 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Shard
         ///   <item><description>readonly：只读数据</description></item>
         /// </list>
         /// </summary>
-        public ShardState Status { get; }
+        public ShardState Status { get; set; }
 
         /// <summary>
         /// 分区起始的Key值，分区范围中包含该Key值。
         /// </summary>
-        public String InclusiveBeginKey { get; }
+        public String InclusiveBeginKey { get; set; }
 
         /// <summary>
         /// 分区结束的Key值，分区范围中不包含该Key值。
         /// </summary>
-        public String ExclusiveEndKey { get; }
+        public String ExclusiveEndKey { get; set; }
 
         /// <summary>
         /// 分区创建时间。
         /// </summary>
-        public Int64 CreateTime { get; }
+        public Int64 CreateTime { get; set; }
 
         public ShardInfo(Int32 shardId, ShardState status, String inclusiveBeginKey, String exclusiveEndKey, Int64 createTime)
         {
@@ -66,6 +66,11 @@ namespace Aliyun.Api.LogService.Domain.LogStore.Shard
             this.InclusiveBeginKey = inclusiveBeginKey;
             this.ExclusiveEndKey = exclusiveEndKey;
             this.CreateTime = createTime;
+        }
+
+        public ShardInfo()
+        {
+
         }
     }
 }

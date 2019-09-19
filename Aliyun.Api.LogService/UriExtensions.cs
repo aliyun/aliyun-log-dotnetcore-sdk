@@ -8,7 +8,7 @@ namespace Aliyun.Api.LogService
     {
         public static NameValueCollection ParseQueryString(this Uri uri)
         {
-            return HttpUtility.ParseQueryString(uri.ToString());
+            return HttpUtility.ParseQueryString(uri.Query);
         }
     }
 }

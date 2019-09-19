@@ -40,17 +40,17 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
     /// </summary>
     public class HttpResponse : IResponse
     {
-        internal HttpResponseMessage ResponseMessage { get; }
+        internal HttpResponseMessage ResponseMessage { get; set; }
 
-        public Boolean IsSuccess { get; }
+        public Boolean IsSuccess { get; set; }
 
-        public HttpStatusCode StatusCode { get; }
+        public HttpStatusCode StatusCode { get; set; }
 
-        public String RequestId { get; }
+        public String RequestId { get; set; }
 
-        public IDictionary<String, String> Headers { get; }
+        public IDictionary<String, String> Headers { get; set; }
 
-        public Error Error { get; }
+        public Error Error { get; set; }
 
         public HttpResponse(HttpResponseMessage responseMessage, Boolean isSuccess, HttpStatusCode statusCode, String requestId, IDictionary<String, String> headers, Error error)
         {

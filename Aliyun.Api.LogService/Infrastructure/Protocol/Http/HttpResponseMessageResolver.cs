@@ -40,6 +40,7 @@ using LZ4;
 using Newtonsoft.Json;
 #else
 using System.Text.Json;
+using System.Text.Json.Serialization;
 #endif
 
 namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
@@ -213,11 +214,11 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             using (var stream = new MemoryStream(data, false))
             using (var textReader = new StreamReader(stream, Encoding.UTF8 /*TODO: Hard code*/))
             {
-                return JsonSerializer.CreateDefault().Deserialize(textReader, resultType);
+                return JsonSerializer.CreateDefault(JsonSettings.Default).Deserialize(textReader, resultType);
             }
 #else
             var buff = new Span<byte>(data);
-            return JsonSerializer.Deserialize(buff, resultType);
+            return JsonSerializer.Deserialize(buff, resultType, JsonSettings.Default);
 #endif
         }
 

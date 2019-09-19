@@ -33,22 +33,22 @@ namespace Aliyun.Api.LogService.Domain.Project
         /// <summary>
         /// Project所在区域。
         /// </summary>
-        public String Region { get; }
+        public String Region { get; set; }
 
         /// <summary>
         /// Project的所有者。
         /// </summary>
-        public String Owner { get; }
+        public String Owner { get; set; }
 
         /// <summary>
         /// Project创建时间。
         /// </summary>
-        public String CreateTime { get; }
+        public String CreateTime { get; set; }
 
         /// <summary>
         /// Project最后修改时间。
         /// </summary>
-        public String LastModifyTime { get; }
+        public String LastModifyTime { get; set; }
 
         public ProjectDetailInfo(String projectName, ProjectState status, String description, String region, String owner, String createTime, String lastModifyTime)
             : base(projectName, status, description)
@@ -57,6 +57,11 @@ namespace Aliyun.Api.LogService.Domain.Project
             this.Owner = owner;
             this.CreateTime = createTime;
             this.LastModifyTime = lastModifyTime;
+        }
+
+        public ProjectDetailInfo()
+        {
+
         }
     }
 }

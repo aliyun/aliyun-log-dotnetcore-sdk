@@ -33,22 +33,22 @@ namespace Aliyun.Api.LogService.Domain.Log
         /// <summary>
         /// 子时间区间的开始时间点（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
         /// </summary>
-        public Int32 From { get; }
+        public Int32 From { get; set; }
 
         /// <summary>
         /// 子时间区间的结束时间点（精度为秒，从 1970-1-1 00:00:00 UTC 计算起的秒数）。
         /// </summary>
-        public Int32 To { get; }
+        public Int32 To { get; set; }
 
         /// <summary>
         /// 当前查询结果在该子时间区间内命中的日志条数。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// 当前查询结果在该子时间区间内的结果是否完整，可以有 Incomplete 和 Complete 两个选值。
         /// </summary>
-        public LogProgressState Progress { get; }
+        public LogProgressState Progress { get; set; }
 
         public LogHistogramInfo(Int32 from, Int32 to, Int32 count, LogProgressState progress)
         {
@@ -56,6 +56,11 @@ namespace Aliyun.Api.LogService.Domain.Log
             this.To = to;
             this.Count = count;
             this.Progress = progress;
+        }
+
+        public LogHistogramInfo()
+        {
+
         }
     }
 }

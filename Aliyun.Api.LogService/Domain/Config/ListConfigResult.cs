@@ -34,23 +34,28 @@ namespace Aliyun.Api.LogService.Domain.Config
         /// <summary>
         /// 返回的 config 数目。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// 在服务端 config 总数。
         /// </summary>
-        public Int32 Total { get; }
+        public Int32 Total { get; set; }
 
         /// <summary>
         /// 返回的 config 名称列表。
         /// </summary>
-        public IList<String> Configs { get; }
+        public IList<String> Configs { get; set; }
 
         public ListConfigResult(Int32 count, Int32 total, IList<String> configs)
         {
             this.Count = count;
             this.Total = total;
             this.Configs = configs;
+        }
+
+        public ListConfigResult()
+        {
+
         }
     }
 }

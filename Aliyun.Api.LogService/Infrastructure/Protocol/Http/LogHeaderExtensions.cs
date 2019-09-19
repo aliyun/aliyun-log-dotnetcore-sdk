@@ -148,9 +148,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
         public static LogQueryInfo GetLogQueryInfo(this IResponse<GetLogsResult> response)
             => response.Headers.GetValueOrDefault(LogHeaders.QueryInfo)
 #if NETSTANDARD2_0
-                .ParseNotNull(JsonConvert.DeserializeObject<LogQueryInfo>);
+                .ParseNotNull(s => JsonConvert.DeserializeObject<LogQueryInfo>(s, JsonSettings.Default));
 #else
-                .ParseNotNull(s => JsonSerializer.Deserialize<LogQueryInfo>(s));
+                .ParseNotNull(s => JsonSerializer.Deserialize<LogQueryInfo>(s, JsonSettings.Default));
 #endif
 
         /// <summary>

@@ -34,23 +34,28 @@ namespace Aliyun.Api.LogService.Domain.LogStore
         ///<summary>
         /// 返回的 Logstore 数目。
         ///</summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         ///<summary>
         /// Logstore 总数。
         ///</summary>
-        public Int32 Total { get; }
+        public Int32 Total { get; set; }
 
         ///<summary>
         /// 返回的 Logstore 名称列表。
         ///</summary>
-        public IList<String> Logstores { get; }
+        public IList<String> Logstores { get; set; }
 
         public ListLogStoreResult(Int32 count, Int32 total, IList<String> logstores)
         {
             this.Count = count;
             this.Total = total;
             this.Logstores = logstores;
+        }
+
+        public ListLogStoreResult()
+        {
+
         }
     }
 }

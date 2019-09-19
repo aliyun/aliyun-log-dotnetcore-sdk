@@ -33,37 +33,37 @@ namespace Aliyun.Api.LogService.Domain.Config
         /// <summary>
         /// 日志配置名称， Project 下唯一。
         /// </summary>
-        public String ConfigName { get; }
+        public String ConfigName { get; set; }
 
         /// <summary>
         /// 输入类型，现在只支持 file。
         /// </summary>
-        public String InputType { get; }
+        public String InputType { get; set; }
 
         /// <summary>
         /// 输入详情。
         /// </summary>
-        public ConfigInputDetailInfo InputDetail { get; }
+        public ConfigInputDetailInfo InputDetail { get; set; }
 
         /// <summary>
         /// 输出类型，现在只支持 LogService。
         /// </summary>
-        public String OutputType { get; }
+        public String OutputType { get; set; }
 
         /// <summary>
         /// 输出详情。
         /// </summary>
-        public ConfigOutputDetailExtInfo OutputDetail { get; }
+        public ConfigOutputDetailExtInfo OutputDetail { get; set; }
 
         /// <summary>
         /// 配置创建时间。
         /// </summary>
-        public Int32 CreateTime { get; }
+        public Int32 CreateTime { get; set; }
 
         /// <summary>
         /// 该资源服务端更新时间。
         /// </summary>
-        public Int32 LastModifyTime { get; }
+        public Int32 LastModifyTime { get; set; }
 
         public GetConfigResult(String configName, String inputType, ConfigInputDetailInfo inputDetail, String outputType, ConfigOutputDetailExtInfo outputDetail, Int32 createTime, Int32 lastModifyTime)
         {
@@ -75,18 +75,28 @@ namespace Aliyun.Api.LogService.Domain.Config
             this.CreateTime = createTime;
             this.LastModifyTime = lastModifyTime;
         }
+
+        public GetConfigResult()
+        {
+
+        }
         
         public class ConfigOutputDetailExtInfo : ConfigOutputDetailInfo
         {
             /// <summary>
             /// Project 所在的访问地址。
             /// </summary>
-            public String Endpoint { get; }
+            public String Endpoint { get; set; }
             
             public ConfigOutputDetailExtInfo(String logstoreName, String endpoint)
                 : base(logstoreName)
             {
                 this.Endpoint = endpoint;
+            }
+
+            public ConfigOutputDetailExtInfo()
+            {
+
             }
         }
     }

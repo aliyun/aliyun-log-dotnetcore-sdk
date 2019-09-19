@@ -34,23 +34,28 @@ namespace Aliyun.Api.LogService.Domain.MachineGroup
         /// <summary>
         /// 返回的 machinegroup 数目。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// 返回 machinegroup 总数。
         /// </summary>
-        public Int32 Total { get; }
+        public Int32 Total { get; set; }
 
         /// <summary>
         /// 返回的 machinegroup 名称列表。
         /// </summary>
-        public IList<String> MachineGroups { get; }
+        public IList<String> MachineGroups { get; set; }
 
         public ListMachineGroupResult(Int32 count, Int32 total, IList<String> machineGroups)
         {
             this.Count = count;
             this.Total = total;
             this.MachineGroups = machineGroups;
+        }
+
+        public ListMachineGroupResult()
+        {
+
         }
     }
 }

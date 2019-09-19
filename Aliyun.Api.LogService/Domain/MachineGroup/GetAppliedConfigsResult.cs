@@ -34,17 +34,22 @@ namespace Aliyun.Api.LogService.Domain.MachineGroup
         /// <summary>
         /// 返回的 config 数目。
         /// </summary>
-        public Int32 Count { get; }
+        public Int32 Count { get; set; }
 
         /// <summary>
         /// 返回的 config 名称列表。
         /// </summary>
-        public IList<String> Configs { get; }
+        public IList<String> Configs { get; set; }
 
         public GetAppliedConfigsResult(Int32 count, IList<String> configs)
         {
             this.Count = count;
             this.Configs = configs;
+        }
+
+        public GetAppliedConfigsResult()
+        {
+
         }
     }
 }

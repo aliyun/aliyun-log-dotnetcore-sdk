@@ -56,6 +56,9 @@ namespace Aliyun.Api.LogService.Tests
 
             if (LogPath.IsNotEmpty())
             {
+                var logStorePath = Path.GetDirectoryName(LogPath);
+                if (!Directory.Exists(logStorePath))
+                    Directory.CreateDirectory(logStorePath);
                 this.logWriter = File.CreateText(LogPath);
             }
 
@@ -107,7 +110,8 @@ namespace Aliyun.Api.LogService.Tests
                         this.Log("LogStore created verify pass, assumes LogStore has been prepared.");
                         return;
                     }
-                } else
+                }
+                else
                 {
                     this.Log($"[{successCount}] - LogStore created verify failed, reset success count.");
                     successCount = 0;
@@ -137,7 +141,7 @@ namespace Aliyun.Api.LogService.Tests
                         .ToDictionary(kv => kv.key, kv => kv.value)
                 }, LogLines).ToList()
             };
-            
+
             this.Log($"Test start, concurrency: {Concurrency}, estimate size of each request: {10 * LogContentSize * LogLines / 1000}K");
 
             async Task Run(Int32 group)
@@ -152,14 +156,16 @@ namespace Aliyun.Api.LogService.Tests
                     {
                         var response = await this.context.Client.PostLogStoreLogsAsync(this.context.LogStoreName, logGroup);
                         response.EnsureSuccess();
-                    } catch (Exception e)
+                    }
+                    catch (Exception e)
                     {
                         var now = DateTimeOffset.Now;
                         var frequency = now - lastErrorTime;
                         lastErrorTime = now;
                         this.Log(
                             $"Group: {group}, Iteration: {totalExecution}, Frequency: {frequency.TotalMilliseconds}ms, Exception: {String.Join(" -> ", GetCacadeCause(e))}");
-                    } finally
+                    }
+                    finally
                     {
                         totalExecution++;
                         var inteval = DateTimeOffset.Now - lastLogTime;
@@ -188,7 +194,8 @@ namespace Aliyun.Api.LogService.Tests
                 if (current.InnerException != null && current.InnerException != current)
                 {
                     current = current.InnerException;
-                } else
+                }
+                else
                 {
                     break;
                 }
