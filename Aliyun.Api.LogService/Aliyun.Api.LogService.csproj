@@ -15,6 +15,7 @@
     <PackageVersion>1.2.0</PackageVersion>
     <Description>Aliyun LogService SDK for .NET Core.</Description>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(OS)' == 'Release|Windows_NT' ">
     <SignAssembly>true</SignAssembly>
