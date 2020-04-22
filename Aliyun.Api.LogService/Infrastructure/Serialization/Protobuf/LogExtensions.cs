@@ -85,8 +85,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf
                 ? null
                 : new LogGroup
                 {
-                    Topic = domain.Topic,
-                    Source = domain.Source,
+                    // https://github.com/aliyun/aliyun-log-dotnetcore-sdk/issues/14
+                    Topic = domain.Topic ?? String.Empty, // Empty is allowed, but not null.
+                    Source = domain.Source ?? String.Empty, // Empty is allowed, but not null.
                     LogTags =
                     {
                         domain.LogTags?
