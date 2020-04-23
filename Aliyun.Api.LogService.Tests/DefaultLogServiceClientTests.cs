@@ -384,6 +384,35 @@ namespace Aliyun.Api.LogService.Tests
             this.PrintResponse(response);
             Assert.True(response.IsSuccess);
         }
+        
+        [Fact, TestPriority(nameof(WaitLogStorePrepared))]
+        public async Task TestPostLogStoreLogsWhenTopicAndSourceAreDefault()
+        {
+            var response = await this.context.Client.PostLogStoreLogsAsync(this.context.LogStoreName, new LogGroupInfo
+            {
+                LogTags = new Dictionary<String, String>
+                {
+                    {"Tag1", null},
+                    {"Tag2", String.Empty},
+                    {"Tag3", "far"}
+                },
+                Logs = new List<LogInfo>
+                {
+                    new LogInfo
+                    {
+                        Time = DateTimeOffset.Now,
+                        Contents = new Dictionary<String, String>
+                        {
+                            {"foo", null},
+                            {"bar", String.Empty},
+                            {"far", "baz"}
+                        }
+                    }
+                }
+            });
+            this.PrintResponse(response);
+            Assert.True(response.IsSuccess);
+        }
 
         [Fact, TestPriority(nameof(WaitLogStorePrepared))]
         public async Task TestPostLogStoreLogsWithHashKey()
