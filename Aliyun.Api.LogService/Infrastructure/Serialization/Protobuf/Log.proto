@@ -27,10 +27,9 @@ message LogTag
 message LogGroup
 {
     repeated Log Logs= 1;
-    string Category = 2;
+    string Reserved = 2; // reserved fields
     string Topic = 3;
     string Source = 4;
-    string MachineUUID = 5;
     repeated LogTag LogTags = 6;
 }
 

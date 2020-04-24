@@ -11,7 +11,7 @@
     <PackageProjectUrl>https://github.com/aliyun/aliyun-log-dotnetcore-sdk</PackageProjectUrl>
     <PackageTags>Aliyun </PackageTags>
     <Title>Aliyun LogService .Net Core SDK</Title>
-    <PackOnBuild>true</PackOnBuild>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <PackageVersion>1.1.0</PackageVersion>
     <Description>Aliyun LogService SDK for .NET Core.</Description>
   </PropertyGroup>
@@ -19,6 +19,10 @@
     <SignAssembly>true</SignAssembly>
     <PublicSign>false</PublicSign>
     <AssemblyOriginatorKeyFile>$(SolutionDir)\aliyun-log-dotnetcore-sdk.snk</AssemblyOriginatorKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <NoWarn>$(NoWarn);1591</NoWarn>
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.5.1" />

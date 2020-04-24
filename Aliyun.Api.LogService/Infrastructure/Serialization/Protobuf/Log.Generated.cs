@@ -69,22 +69,22 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             "CENvbnRlbnRzGAIgAygLMkEuYWxpeXVuLmFwaS5sb2cuaW5mcmFzdHJ1Y3R1",
             "cmUuc2VyaWFsaXphdGlvbi5wcm90b2J1Zi5Mb2cuQ29udGVudBolCgdDb250",
             "ZW50EgsKA0tleRgBIAEoCRINCgVWYWx1ZRgCIAEoCSIkCgZMb2dUYWcSCwoD",
-            "S2V5GAEgASgJEg0KBVZhbHVlGAIgASgJIugBCghMb2dHcm91cBJHCgRMb2dz",
+            "S2V5GAEgASgJEg0KBVZhbHVlGAIgASgJItMBCghMb2dHcm91cBJHCgRMb2dz",
             "GAEgAygLMjkuYWxpeXVuLmFwaS5sb2cuaW5mcmFzdHJ1Y3R1cmUuc2VyaWFs",
-            "aXphdGlvbi5wcm90b2J1Zi5Mb2cSEAoIQ2F0ZWdvcnkYAiABKAkSDQoFVG9w",
-            "aWMYAyABKAkSDgoGU291cmNlGAQgASgJEhMKC01hY2hpbmVVVUlEGAUgASgJ",
-            "Ek0KB0xvZ1RhZ3MYBiADKAsyPC5hbGl5dW4uYXBpLmxvZy5pbmZyYXN0cnVj",
-            "dHVyZS5zZXJpYWxpemF0aW9uLnByb3RvYnVmLkxvZ1RhZyJkCgxMb2dHcm91",
-            "cExpc3QSVAoMbG9nR3JvdXBMaXN0GAEgAygLMj4uYWxpeXVuLmFwaS5sb2cu",
-            "aW5mcmFzdHJ1Y3R1cmUuc2VyaWFsaXphdGlvbi5wcm90b2J1Zi5Mb2dHcm91",
-            "cEI+qgI7QWxpeXVuLkFwaS5Mb2dTZXJ2aWNlLkluZnJhc3RydWN0dXJlLlNl",
-            "cmlhbGl6YXRpb24uUHJvdG9idWZiBnByb3RvMw=="));
+            "aXphdGlvbi5wcm90b2J1Zi5Mb2cSEAoIUmVzZXJ2ZWQYAiABKAkSDQoFVG9w",
+            "aWMYAyABKAkSDgoGU291cmNlGAQgASgJEk0KB0xvZ1RhZ3MYBiADKAsyPC5h",
+            "bGl5dW4uYXBpLmxvZy5pbmZyYXN0cnVjdHVyZS5zZXJpYWxpemF0aW9uLnBy",
+            "b3RvYnVmLkxvZ1RhZyJkCgxMb2dHcm91cExpc3QSVAoMbG9nR3JvdXBMaXN0",
+            "GAEgAygLMj4uYWxpeXVuLmFwaS5sb2cuaW5mcmFzdHJ1Y3R1cmUuc2VyaWFs",
+            "aXphdGlvbi5wcm90b2J1Zi5Mb2dHcm91cEI+qgI7QWxpeXVuLkFwaS5Mb2dT",
+            "ZXJ2aWNlLkluZnJhc3RydWN0dXJlLlNlcmlhbGl6YXRpb24uUHJvdG9idWZi",
+            "BnByb3RvMw=="));
       descriptor = pbr::FileDescriptor.FromGeneratedCode(descriptorData,
           new pbr::FileDescriptor[] { },
           new pbr::GeneratedClrTypeInfo(null, new pbr::GeneratedClrTypeInfo[] {
             new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Parser, new[]{ "Time", "Contents" }, null, null, new pbr::GeneratedClrTypeInfo[] { new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Types.Content), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.Log.Types.Content.Parser, new[]{ "Key", "Value" }, null, null, null)}),
             new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogTag), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogTag.Parser, new[]{ "Key", "Value" }, null, null, null),
-            new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroup), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroup.Parser, new[]{ "Logs", "Category", "Topic", "Source", "MachineUUID", "LogTags" }, null, null, null),
+            new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroup), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroup.Parser, new[]{ "Logs", "Reserved", "Topic", "Source", "LogTags" }, null, null, null),
             new pbr::GeneratedClrTypeInfo(typeof(global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroupList), global::Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf.LogGroupList.Parser, new[]{ "LogGroupList_" }, null, null, null)
           }));
     }
@@ -591,10 +591,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public LogGroup(LogGroup other) : this() {
       logs_ = other.logs_.Clone();
-      category_ = other.category_;
+      reserved_ = other.reserved_;
       topic_ = other.topic_;
       source_ = other.source_;
-      machineUUID_ = other.machineUUID_;
       logTags_ = other.logTags_.Clone();
       _unknownFields = pb::UnknownFieldSet.Clone(other._unknownFields);
     }
@@ -614,14 +613,17 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
       get { return logs_; }
     }
 
-    /// <summary>Field number for the "Category" field.</summary>
-    public const int CategoryFieldNumber = 2;
-    private string category_ = "";
+    /// <summary>Field number for the "Reserved" field.</summary>
+    public const int ReservedFieldNumber = 2;
+    private string reserved_ = "";
+    /// <summary>
+    /// reserved fields
+    /// </summary>
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string Category {
-      get { return category_; }
+    public string Reserved {
+      get { return reserved_; }
       set {
-        category_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
+        reserved_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -644,17 +646,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
       get { return source_; }
       set {
         source_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
-      }
-    }
-
-    /// <summary>Field number for the "MachineUUID" field.</summary>
-    public const int MachineUUIDFieldNumber = 5;
-    private string machineUUID_ = "";
-    [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
-    public string MachineUUID {
-      get { return machineUUID_; }
-      set {
-        machineUUID_ = pb::ProtoPreconditions.CheckNotNull(value, "value");
       }
     }
 
@@ -682,10 +673,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         return true;
       }
       if(!logs_.Equals(other.logs_)) return false;
-      if (Category != other.Category) return false;
+      if (Reserved != other.Reserved) return false;
       if (Topic != other.Topic) return false;
       if (Source != other.Source) return false;
-      if (MachineUUID != other.MachineUUID) return false;
       if(!logTags_.Equals(other.logTags_)) return false;
       return Equals(_unknownFields, other._unknownFields);
     }
@@ -694,10 +684,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     public override int GetHashCode() {
       int hash = 1;
       hash ^= logs_.GetHashCode();
-      if (Category.Length != 0) hash ^= Category.GetHashCode();
+      if (Reserved.Length != 0) hash ^= Reserved.GetHashCode();
       if (Topic.Length != 0) hash ^= Topic.GetHashCode();
       if (Source.Length != 0) hash ^= Source.GetHashCode();
-      if (MachineUUID.Length != 0) hash ^= MachineUUID.GetHashCode();
       hash ^= logTags_.GetHashCode();
       if (_unknownFields != null) {
         hash ^= _unknownFields.GetHashCode();
@@ -713,9 +702,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute]
     public void WriteTo(pb::CodedOutputStream output) {
       logs_.WriteTo(output, _repeated_logs_codec);
-      if (Category.Length != 0) {
+      if (Reserved.Length != 0) {
         output.WriteRawTag(18);
-        output.WriteString(Category);
+        output.WriteString(Reserved);
       }
       if (Topic.Length != 0) {
         output.WriteRawTag(26);
@@ -724,10 +713,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
       if (Source.Length != 0) {
         output.WriteRawTag(34);
         output.WriteString(Source);
-      }
-      if (MachineUUID.Length != 0) {
-        output.WriteRawTag(42);
-        output.WriteString(MachineUUID);
       }
       logTags_.WriteTo(output, _repeated_logTags_codec);
       if (_unknownFields != null) {
@@ -739,17 +724,14 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
     public int CalculateSize() {
       int size = 0;
       size += logs_.CalculateSize(_repeated_logs_codec);
-      if (Category.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(Category);
+      if (Reserved.Length != 0) {
+        size += 1 + pb::CodedOutputStream.ComputeStringSize(Reserved);
       }
       if (Topic.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Topic);
       }
       if (Source.Length != 0) {
         size += 1 + pb::CodedOutputStream.ComputeStringSize(Source);
-      }
-      if (MachineUUID.Length != 0) {
-        size += 1 + pb::CodedOutputStream.ComputeStringSize(MachineUUID);
       }
       size += logTags_.CalculateSize(_repeated_logTags_codec);
       if (_unknownFields != null) {
@@ -764,17 +746,14 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
         return;
       }
       logs_.Add(other.logs_);
-      if (other.Category.Length != 0) {
-        Category = other.Category;
+      if (other.Reserved.Length != 0) {
+        Reserved = other.Reserved;
       }
       if (other.Topic.Length != 0) {
         Topic = other.Topic;
       }
       if (other.Source.Length != 0) {
         Source = other.Source;
-      }
-      if (other.MachineUUID.Length != 0) {
-        MachineUUID = other.MachineUUID;
       }
       logTags_.Add(other.logTags_);
       _unknownFields = pb::UnknownFieldSet.MergeFrom(_unknownFields, other._unknownFields);
@@ -793,7 +772,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
             break;
           }
           case 18: {
-            Category = input.ReadString();
+            Reserved = input.ReadString();
             break;
           }
           case 26: {
@@ -802,10 +781,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Serialization.Protobuf {
           }
           case 34: {
             Source = input.ReadString();
-            break;
-          }
-          case 42: {
-            MachineUUID = input.ReadString();
             break;
           }
           case 50: {
