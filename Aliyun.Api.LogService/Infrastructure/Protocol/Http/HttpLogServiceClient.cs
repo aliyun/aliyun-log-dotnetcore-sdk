@@ -74,6 +74,9 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             } else if (project.IsNotEmpty())
             {
                 httpRequestMessage.Headers.Host = $"{project}.{this.httpClient.BaseAddress.Host}";
+                httpRequestMessage.RequestUri =
+                    new Uri($"{this.httpClient.BaseAddress.Scheme}://{project}.{this.httpClient.BaseAddress.Host}" +
+                    $"{httpRequestMessage.RequestUri}");
             }
 
             var responseMessage = await this.httpClient.SendAsync(httpRequestMessage);
