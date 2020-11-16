@@ -36,10 +36,8 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
     {
         private Uri endpoint;
 
-        private String project;
-
         private Func<Credential> credentialProvider;
-        
+
         private Boolean? useProxy;
 
         private WebProxy proxy;
@@ -57,13 +55,26 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             Ensure.NotEmpty(endpoint, nameof(endpoint));
             Ensure.NotEmpty(project, nameof(project));
 
-            // To fill the schema part.
-            var uriBuilder = new UriBuilder(endpoint);
-
-            this.endpoint = uriBuilder.Uri;
-            this.project = project;
+            this.endpoint = parseUri(endpoint, project);
 
             return this;
+        }
+
+        private Uri parseUri(String endpoint, String project)
+        {
+            Uri uri;
+            if (endpoint.StartsWith("http://"))
+            {
+                uri = new UriBuilder(endpoint.Insert(7, project + ".")).Uri;
+            } else if (endpoint.StartsWith("https://"))
+            {
+                uri = new UriBuilder(endpoint.Insert(8, project + ".")).Uri;
+            } else
+            {
+                uri = new UriBuilder("http://" + project + "." + endpoint).Uri;
+            }
+
+            return uri;
         }
 
         /// <summary>
@@ -77,11 +88,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             Ensure.NotNull(endpoint, nameof(endpoint));
             Ensure.NotEmpty(project, nameof(project));
 
-            // To fill the schema part.
-            var uriBuilder = new UriBuilder(endpoint);
-
-            this.endpoint = uriBuilder.Uri;
-            this.project = project;
+            this.endpoint = parseUri(endpoint.Host, project);
 
             return this;
         }
@@ -115,7 +122,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             Ensure.NotNull(credentialProvider, nameof(credentialProvider));
 
             this.credentialProvider = credentialProvider;
-            
+
             return this;
         }
 
@@ -220,7 +227,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             httpClient.BaseAddress = this.endpoint;
 
             // Default use project scope api.
-            httpClient.DefaultRequestHeaders.Host = $"{this.project}.{this.endpoint.Host}";
+            httpClient.DefaultRequestHeaders.Host = this.endpoint.Host;
 
             if (this.timeout != null)
             {
