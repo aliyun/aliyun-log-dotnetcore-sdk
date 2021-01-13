@@ -353,8 +353,11 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                 .Select(x => $"{x.Key}:{x.Value}"));
 
             var resource = this.httpRequestMessage.RequestUri.OriginalString;
-
-            return String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource);
+            
+            return String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource) + "?" +
+                   String.Join("&", this.query
+                       .OrderBy(x => x.Key)
+                       .Select(x => $"{x.Key}={x.Value}"));;
         }
 
         private Byte[] CalculateContentMd5()
