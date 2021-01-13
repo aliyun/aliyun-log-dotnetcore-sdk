@@ -213,7 +213,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         public async Task<IResponse<GetLogsResult>> GetLogsAsync(GetLogsRequest request)
             => (await this.SendRequestAsync<IList<IDictionary<String, String>>>(
-                    new HttpRequestMessageBuilder(HttpMethod.Get, $"/logstores/{request.Logstorename}/index")
+                    new HttpRequestMessageBuilder(HttpMethod.Get, $"/logstores/{request.Logstorename}")
                         .Query("type", "log")
                         .Query("from", request.From.ToString())
                         .Query("to", request.To.ToString())
