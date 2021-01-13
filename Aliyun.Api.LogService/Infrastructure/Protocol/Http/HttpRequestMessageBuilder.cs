@@ -353,11 +353,12 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                 .Select(x => $"{x.Key}:{x.Value}"));
 
             var resource = this.httpRequestMessage.RequestUri.OriginalString;
-            
+
             return String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource) + "?" +
                    String.Join("&", this.query
                        .OrderBy(x => x.Key)
-                       .Select(x => $"{x.Key}={x.Value}"));;
+                       .Select(x => $"{x.Key}={x.Value}"));
+            ;
         }
 
         private Byte[] CalculateContentMd5()
@@ -391,7 +392,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             {
                 this.SetBodyRawSize(0);
             }
-            
+
             // Build content if necessary
             if (this.SerializedContent.IsNotEmpty())
             {
@@ -439,16 +440,17 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                 .Select(x => $"{encodeUrl(x.Key)}={encodeUrl(x.Value)}"));
             var pathAndQuery = queryString.IsNotEmpty() ? $"{this.path}?{queryString}" : this.path;
             this.httpRequestMessage.RequestUri = new Uri(pathAndQuery, UriKind.Relative);
-            
+
             return this.httpRequestMessage;
         }
 
         private String encodeUrl(String value)
         {
-            if (value==null)
+            if (value == null)
             {
                 return "";
             }
+
             string encoded = HttpUtility.UrlEncode(value, this.encoding);
             return encoded.Replace("+", "%20").Replace("*", "%2A").Replace("~", "%7E").Replace("/", "%2F");
         }
