@@ -358,7 +358,6 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
                    String.Join("&", this.query
                        .OrderBy(x => x.Key)
                        .Select(x => $"{x.Key}={x.Value}"));
-            ;
         }
 
         private Byte[] CalculateContentMd5()
