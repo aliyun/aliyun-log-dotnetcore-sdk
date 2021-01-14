@@ -32,6 +32,7 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Security.Cryptography;
 using System.Text;
+using System.Web;
 using Aliyun.Api.LogService.Infrastructure.Authentication;
 using Aliyun.Api.LogService.Utils;
 using Google.Protobuf;
@@ -353,7 +354,18 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
             var resource = this.httpRequestMessage.RequestUri.OriginalString;
 
-            return String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource);
+            String signSource;
+            if (this.query.IsEmpty())
+            {
+                signSource = String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource);
+            } else
+            {
+                signSource = String.Join("\n", verb, contentMd5 ?? String.Empty, contentType ?? String.Empty, date, logHeaders, resource) + "?" +
+                             String.Join("&", this.query
+                                 .OrderBy(x => x.Key)
+                                 .Select(x => $"{x.Key}={x.Value}"));
+            }
+            return signSource;
         }
 
         private Byte[] CalculateContentMd5()
@@ -366,24 +378,16 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         #endregion Signature
 
-
         public HttpRequestMessage Build()
         {
             // Validate
             Ensure.NotNull(this.credential, nameof(this.credential));
             Ensure.NotEmpty(this.credential.AccessKeyId, nameof(this.credential.AccessKeyId));
             Ensure.NotEmpty(this.credential.AccessKey, nameof(this.credential.AccessKey));
-           
-            // Rebuild the RequestUri
-            var queryString = String.Join("&", this.query
-                .OrderBy(x => x.Key)
-                .Select(x => $"{x.Key}={x.Value}"));
-            var pathAndQuery = queryString.IsNotEmpty() ? $"{this.path}?{queryString}" : this.path;
-            this.httpRequestMessage.RequestUri = new Uri(pathAndQuery, UriKind.Relative);
 
             // Process sts-token.
             var hasSecurityToken = this.httpRequestMessage.Headers.TryGetValues(LogHeaders.SecurityToken, out var securityTokens)
-                && securityTokens.FirstOrDefault().IsNotEmpty();
+                                   && securityTokens.FirstOrDefault().IsNotEmpty();
 
             if (!hasSecurityToken && this.credential.StsToken.IsNotEmpty())
             {
@@ -395,7 +399,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             {
                 this.SetBodyRawSize(0);
             }
-            
+
             // Build content if necessary
             if (this.SerializedContent.IsNotEmpty())
             {
@@ -437,7 +441,25 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
             var signature = Convert.ToBase64String(this.ComputeSignature());
             this.httpRequestMessage.Headers.Authorization = new AuthenticationHeaderValue("LOG", $"{this.credential.AccessKeyId}:{signature}");
 
+            // Rebuild the RequestUri
+            var queryString = String.Join("&", this.query
+                .OrderBy(x => x.Key)
+                .Select(x => $"{encodeUrl(x.Key)}={encodeUrl(x.Value)}"));
+            var pathAndQuery = queryString.IsNotEmpty() ? $"{this.path}?{queryString}" : this.path;
+            this.httpRequestMessage.RequestUri = new Uri(pathAndQuery, UriKind.Relative);
+
             return this.httpRequestMessage;
+        }
+
+        private String encodeUrl(String value)
+        {
+            if (value == null)
+            {
+                return "";
+            }
+
+            string encoded = HttpUtility.UrlEncode(value, this.encoding);
+            return encoded.Replace("+", "%20").Replace("*", "%2A").Replace("~", "%7E").Replace("/", "%2F");
         }
     }
 }
