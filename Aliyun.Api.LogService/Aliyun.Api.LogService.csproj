@@ -3,11 +3,11 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>7.1</LangVersion>
-    <PackageId>Aliyun.Api.LogService</PackageId>
-    <Authors>MiNG</Authors>
+    <PackageId>Aliyun.SLS.SDK</PackageId>
+    <Authors>Aliyun SLS</Authors>
     <NeutralLanguage>zh-CN</NeutralLanguage>
     <PackageLicenseUrl>https://raw.githubusercontent.com/aliyun/aliyun-log-dotnetcore-sdk/master/LICENSE</PackageLicenseUrl>
-    <Owners>MiNG</Owners>
+    <Owners>Aliyun SLS</Owners>
     <PackageProjectUrl>https://github.com/aliyun/aliyun-log-dotnetcore-sdk</PackageProjectUrl>
     <PackageTags>Aliyun </PackageTags>
     <Title>Aliyun LogService .Net Core SDK</Title>

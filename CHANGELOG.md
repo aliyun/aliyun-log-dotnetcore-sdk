@@ -1,5 +1,14 @@
 # Aliyun LogServie SDK for .NET Core
 
+## 1.1.1
+
+### 变更内
+
+- 修复查询语句中包含特殊字符未转义bug
+- 为访问的域名增加project 前缀
+- 重命名包为 Aliyun.SLS.SDK
+
+
 ## 1.1.0
 
 ### 变更内容
