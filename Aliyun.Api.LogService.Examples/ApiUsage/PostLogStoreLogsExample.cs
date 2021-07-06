@@ -76,6 +76,7 @@ namespace Aliyun.Api.LogService.Examples.ApiUsage
             var logGroupInfo = new LogGroupInfo
             {
                 Topic = "example",
+                Source = "test",
                 LogTags =
                 {
                     {"example", "true"},
