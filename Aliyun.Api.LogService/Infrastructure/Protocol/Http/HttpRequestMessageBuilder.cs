@@ -54,7 +54,7 @@ namespace Aliyun.Api.LogService.Infrastructure.Protocol.Http
 
         private static readonly JsonSerializerSettings JsonSerializerSettings = new JsonSerializerSettings
         {
-            ContractResolver = new CamelCasePropertyNamesContractResolver(),
+            ContractResolver = new CustomCamelCaseResolver(),
             NullValueHandling = NullValueHandling.Ignore
         };
 

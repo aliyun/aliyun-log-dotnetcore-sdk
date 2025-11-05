@@ -1,5 +1,11 @@
 # Aliyun LogServie SDK for .NET Core
 
+## 1.1.2
+
+### 变更内容
+
+- 修复字典 key 被错误转换为 camelCase 的问题，例如索引字段名称（如 `User_name`）在序列化时被错误转换的问题
+
 ## 1.1.1
 
 ### 变更内容
