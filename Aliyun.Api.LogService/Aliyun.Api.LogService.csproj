@@ -6,7 +6,7 @@
     <PackageId>aliyun-log-dotnetcore-sdk</PackageId>
     <Authors>Aliyun SLS</Authors>
     <NeutralLanguage>zh-CN</NeutralLanguage>
-    <PackageLicenseUrl>https://raw.githubusercontent.com/aliyun/aliyun-log-dotnetcore-sdk/master/LICENSE</PackageLicenseUrl>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <Owners>Aliyun SLS</Owners>
     <PackageProjectUrl>https://github.com/aliyun/aliyun-log-dotnetcore-sdk</PackageProjectUrl>
     <PackageTags>Aliyun </PackageTags>
