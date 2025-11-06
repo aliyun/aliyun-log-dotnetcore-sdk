@@ -15,6 +15,13 @@
     <PackageVersion>1.1.2</PackageVersion>
     <Description>Aliyun LogService SDK for .NET Core.</Description>
     <PackageReadmeFile>README.md</PackageReadmeFile>
+    <PackageReleaseNotes>
+      v1.1.2 更新内容:
+      - 修复字典 key 被错误转换为 camelCase 的问题，例如索引字段名称（如 User_name）在序列化时被错误转换的问题
+      - 重命名包为 aliyun-log-dotnetcore-sdk
+      
+      查看完整更新日志: https://github.com/aliyun/aliyun-log-dotnetcore-sdk/blob/master/CHANGELOG.md
+    </PackageReleaseNotes>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(OS)' == 'Release|Windows_NT' ">
     <SignAssembly>true</SignAssembly>
