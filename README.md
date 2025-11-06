@@ -1,6 +1,6 @@
 # Aliyun LogService SDK for .NET Core
 
-[![NuGet](https://img.shields.io/nuget/v/Aliyun.Api.LogService.svg)](https://www.nuget.org/packages/Aliyun.Api.LogService)
+[![NuGet](https://img.shields.io/nuget/v/aliyun-log-dotnetcore-sdk.svg)](https://www.nuget.org/packages/aliyun-log-dotnetcore-sdk)
 
 ## 简介
 
@@ -12,7 +12,7 @@
 
 ### 平台支持
 
-关于 .NetStandard 的实现支持请参考 https://docs.microsoft.com/en-us/dotnet/standard/net-standard ，当前支持：
+关于 .NetStandard 的实现支持请参考 <https://docs.microsoft.com/en-us/dotnet/standard/net-standard> ，当前支持：
 
 - .NET Core 2.0
 - .NET Framework (with .NET Core 1.x SDK) 4.6.2
@@ -32,6 +32,12 @@
 | Protobuf | [Google.Protobuf &bull; 3.5.1](https://www.nuget.org/packages/Google.Protobuf/3.5.1) |
 | Zlib | [Iconic.Zlib.NetStandard &bull; 1.0.0](https://www.nuget.org/packages/Iconic.Zlib.Netstandard/1.0.0) |
 | Lz4 | [lz4net &bull; 1.0.15.93](https://www.nuget.org/packages/lz4net/1.0.15.93) |
+
+## 安装
+
+```bash
+dotnet add package aliyun-log-dotnetcore-sdk
+```
 
 ## 快速开始
 
@@ -59,7 +65,7 @@
                 Line = 100,
             });
         ```
-    
+
     - 使用扩展方法调用，所有（简单类型的）请求参数都会被平铺到方法入参上，非必传参数使用可选参数表示，此方式的好处是**代码可读性高，调用简单**：
 
         ```csharp
