@@ -3,7 +3,7 @@
     <TargetFramework>netstandard2.0</TargetFramework>
     <GenerateAssemblyInfo>false</GenerateAssemblyInfo>
     <LangVersion>7.1</LangVersion>
-    <PackageId>Aliyun.SLS.SDK</PackageId>
+    <PackageId>aliyun-log-dotnetcore-sdk</PackageId>
     <Authors>Aliyun SLS</Authors>
     <NeutralLanguage>zh-CN</NeutralLanguage>
     <PackageLicenseUrl>https://raw.githubusercontent.com/aliyun/aliyun-log-dotnetcore-sdk/master/LICENSE</PackageLicenseUrl>

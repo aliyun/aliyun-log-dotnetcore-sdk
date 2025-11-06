@@ -32,8 +32,8 @@
 - `Log.proto`编译
 
   ```bash
-  $ cd Aliyun.Api.LogService/Infrastructure/Serialization/Protobuf
-  $ protoc --csharp_out=. --csharp_opt=file_extension=.Generated.cs Log.proto
+  cd Aliyun.Api.LogService/Infrastructure/Serialization/Protobuf
+  protoc --csharp_out=. --csharp_opt=file_extension=.Generated.cs Log.proto
   ```
   
 - proto2兼容性
@@ -146,7 +146,7 @@ public static class FooExtensions
 
 ### Shipper测试配置
 
-如需要需要测试投递功能，由于对外 API 不支持动态创建 Shipper，需要先创建 LogStore 后按照[投递流程](https://help.aliyun.com/document_detail/29002.html)的指引创建独立的 Shipper 再把 Shipper 的名称配置到 `TestContextFixture`.`ShipperName` 才可测试。 
+如需要需要测试投递功能，由于对外 API 不支持动态创建 Shipper，需要先创建 LogStore 后按照[投递流程](https://help.aliyun.com/document_detail/29002.html)的指引创建独立的 Shipper 再把 Shipper 的名称配置到 `TestContextFixture`.`ShipperName` 才可测试。
 
 ### 测试开关
 
